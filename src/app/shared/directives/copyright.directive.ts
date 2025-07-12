@@ -8,7 +8,7 @@ export class CopyrightDirective implements OnInit {
 
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
-    const message = `Copyright ©${currentYear} All Rights Reserved By Vladimir Gulev`;
+    const message = `© ${currentYear} Game Store. All rights reserved by Vladimir Gulev`;
 
     this.renderer.addClass(this.el.nativeElement, 'copyright');
     this.renderer.setProperty(this.el.nativeElement, 'textContent', message);
