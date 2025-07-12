@@ -1,0 +1,110 @@
+@if (registerForm != undefined) {
+@let form = registerForm.controls;
+<form [formGroup]="registerForm" (ngSubmit)="alert()" class="form" @slideAnimation>
+    <h1>Register Form</h1>
+    <!-- Username Input Field -->
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <!--?Clear input button  -->
+        @if (form.username.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'username')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.username.hasError('required')){
+        <mat-error>Username is required!</mat-error>
+        }
+        @else if (form.username.hasError('minlength')) {
+        <mat-error>Username must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Username Input Field -->
+
+
+    <!-- Email Input Field -->
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <!--?Clear input button  -->
+        @if (form.email.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'email')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if (form.email.hasError('required')) {
+        <mat-error>Email is required!</mat-error>
+        }
+        @else if (form.email.hasError('minlength')) {
+        <mat-error>Email must be at least 3 characters long!</mat-error>
+        }
+        @else if(form.email.hasError('email')){
+        <mat-error>Enter a valid email adress!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Email Input Field -->
+
+
+    <!-- Password Input Field -->
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <!--?Clear input button  -->
+        @if (form.password.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'password')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.password.hasError('required')){
+        <mat-error>Password is required!</mat-error>
+        }
+        @else if (form.password.hasError('minlength')) {
+        <mat-error>Password must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Password Input Field -->
+
+
+    <!-- Repass Input Field -->
+    <mat-form-field>
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" formControlName="repass">
+        <!--?Clear input button  -->
+        @if (form.repass.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'repass')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.repass.hasError('required')){
+        <mat-error>Repeat password is required!</mat-error>
+        }
+        @else if (form.repass.hasError('passwordsMismatch')) {
+        <mat-error>Passwords does not match!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Repass Input Field -->
+
+
+    <!-- Submit Button -->
+    <button class="btn" matButton="filled" type="submit" [disabled]="registerForm.invalid">Register</button>
+    <!-- Submit Button -->
+
+    <p class="form-hint">
+        Already a customer?
+        <a routerLink="/users/login" class="link">Login here</a>
+    </p>
+</form>
+
+}

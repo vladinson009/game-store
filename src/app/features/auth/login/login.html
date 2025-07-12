@@ -1,0 +1,58 @@
+@if (loginForm != undefined) {
+@let form = loginForm.controls;
+<form [formGroup]="loginForm" (ngSubmit)="alert()" class="form" @slideAnimation>
+    <h1>Login Form</h1>
+    <!-- Username Input Field -->
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <!--?Clear input button  -->
+        @if (form.username.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'username')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.username.hasError('required')){
+        <mat-error>Username is required!</mat-error>
+        }
+        @else if (form.username.hasError('minlength')) {
+        <mat-error>Username must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+
+    </mat-form-field>
+    <!-- Username Input Field -->
+
+
+    <!-- Password Input Field -->
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <!--?Clear input button  -->
+        @if (form.password.value) {
+        <button matSuffix matIconButton aria-label="Clear" (click)="resetInput($event, 'password')">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.password.hasError('required')){
+        <mat-error>Password is required!</mat-error>
+        }
+        @else if (form.username.hasError('minlength')) {
+        <mat-error>Password must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Password Input Field -->
+
+    <button class="btn" matButton="filled" type="submit" [disabled]="loginForm.invalid">Login</button>
+    <p class="form-hint">
+        New customer?
+        <a routerLink="/users/register" class="link">Start here</a>
+    </p>
+</form>
+
+}
