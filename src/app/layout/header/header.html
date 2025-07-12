@@ -1,0 +1,37 @@
+<header>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <button matButton="filled" routerLink="/">
+                <mat-icon>sports_esports</mat-icon>
+                <h2>Game Store</h2>
+            </button>
+            <span class="spacer"></span>
+            <div class="btn-container">
+                <!-- Mat Menu Definition -->
+                <button matButton [matMenuTriggerFor]="mainMenu">
+                    Menu <mat-icon>apps</mat-icon>
+                </button>
+
+                <mat-menu #mainMenu="matMenu">
+                    <button mat-menu-item routerLink="/">Home</button>
+                    <button mat-menu-item routerLink="/games">Games</button>
+                    <button mat-menu-item routerLink="/about-us">About Us</button>
+                    <button mat-menu-item routerLink="/learn-more">Learn More</button>
+                </mat-menu>
+
+                <!-- User Menu  -->
+                <button matButton [matMenuTriggerFor]="userMenu">
+                    Profile <mat-icon>account_circle</mat-icon>
+                </button>
+
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item routerLink="/users/login">Login</button>
+                    <button mat-menu-item routerLink="/users/register">Register</button>
+                    <button mat-menu-item routerLink="/users/profile">Profile</button>
+                    <button mat-menu-item routerLink="/users/logout">Logout</button>
+                </mat-menu>
+            </div>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+</header>

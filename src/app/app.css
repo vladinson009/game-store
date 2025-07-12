@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100lvh;
+}
+main {
+  flex: 1; /* take remaining space */
+  display: block; /* important for flex to work */
+}
