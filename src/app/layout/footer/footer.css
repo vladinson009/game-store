@@ -1,1 +1,48 @@
+mat-toolbar {
+  /* margin-bottom: 0.5rem; */
+  padding-block: 1rem;
+  background-color: var(--bg-color);
+}
 
+a {
+  all: unset;
+  cursor: pointer;
+  background-color: var(--alternate-color);
+  display: flex;
+  padding: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease,
+    transform 0.3s ease;
+}
+a:visited {
+  all: unset;
+}
+a:hover {
+  background-color: rgb(37, 37, 37);
+  color: white;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.social-media {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+.info > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  span {
+    color: white;
+    font-size: 2rem;
+  }
+}
