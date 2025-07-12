@@ -1,1 +1,28 @@
-<p>home works!</p>
+<div class="container" @slideAnimation>
+    <div class="inner testimonial-slide" [@carouselAnimation]="activeIndex">
+        <div class="left">
+            <img [src]="testimonials[activeIndex].imageUrl" alt="animal-photo">
+        </div>
+        <div class="right">
+            <h1> {{testimonials[activeIndex].name}} </h1>
+            <p> {{testimonials[activeIndex].message}} </p>
+        </div>
+    </div>
+</div>
+<div class="carousel" @slideAnimation>
+    <div class="dots">
+        @for (testimonial of testimonials; track $index; let i = $index) {
+        <button mat-button class="dot" [class.active]="i === activeIndex" (click)="setActive(i)"> </button>
+        }
+    </div>
+    <div class="buttons">
+        <a matButton="elevated" color="accent" [href]="testimonials[activeIndex].role">Show
+            {{testimonials[activeIndex].name}}</a>
+        <a matButton="tonal" href="#">Contact Us</a>
+    </div>
+    <div class="game-container">
+        <a matButton="elevated" routerLink="/games" class="pulse">
+            <h1>Explore our store</h1>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+.container {
+}
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 2em;
+  font-size: 1.3em;
+  line-height: 1.4;
+  color: white;
+  height: 500px;
+  text-shadow: 2px 2px 4px var(--bg-color);
+  overflow: hidden;
+
+  .left {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px 10px rgb(0, 0, 0, 0.3);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.carousel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
+.dots {
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  bottom: 150%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: gray;
+  min-width: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  width: 20px;
+  height: 20px;
+  background-color: #3f51b5; /* Example: Angular Material primary color */
+}
+.buttons {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+}
+.game-container {
+  margin: 4rem 0;
+  display: flex;
+  justify-content: center;
+}
