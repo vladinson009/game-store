@@ -16,7 +16,27 @@ button:hover {
   background-color: var(--bg-color);
   color: white;
 }
-.mat-mdc-menu-content {
-  color: red !important;
-  padding: 2em !important;
+.username-container {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(192, 167, 167);
+  position: absolute;
+  left: 50%;
+  translate: -50% 50%;
+  bottom: 100%;
+
+  padding: 1rem 3rem;
+  max-width: 50vw;
+  min-width: 40vw;
+  border-bottom-left-radius: 50rem;
+  border-bottom-right-radius: 50rem;
+
+  p {
+    position: relative;
+    top: 25px;
+    text-align: center;
+  }
+}
+.username {
+  color: var(--clickable-text);
 }
