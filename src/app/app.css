@@ -1,11 +1,12 @@
 :host {
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   min-height: 100lvh;
   background-color: rgba(255, 0, 0, 0.11);
 }
 main {
-  flex: 1; /* take remaining space */
-  display: block; /* important for flex to work */
+  flex: 1;
+  display: block;
   margin-inline: 5%;
 }
