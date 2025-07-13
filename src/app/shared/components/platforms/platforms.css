@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 1.2rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.482);
+  box-shadow: 2px 4px 24px 15px rgba(0, 0, 0, 0.6);
+  margin-bottom: 3rem;
+}
+.card-wrapper {
+  display: flex;
+  gap: 3em;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card img {
+  width: 50px;
+  height: auto;
+}
