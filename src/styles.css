@@ -13,7 +13,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: calc(100lvh - 1em);
   position: relative;
-  overflow: hidden;
+  /* overflow: auto; */
   background-size: cover;
   background-position-y: center;
   background-position-x: center;
@@ -68,5 +68,31 @@ span.spacer {
   100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(63, 81, 181, 0);
+  }
+}
+.jump-on-hover {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.jump-on-hover:hover {
+  animation: jump 0.4s ease;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  70% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
