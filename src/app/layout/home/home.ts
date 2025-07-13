@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import carouselAnimation from '../../animations/carouselAnimation';
 import slideAnimation from '../../animations/slideAnimation';
 import { RouterLink } from '@angular/router';
+import { Platforms } from '../../shared/components/platforms/platforms';
 
 export interface HomeType {
   name: string;
@@ -13,7 +14,7 @@ export interface HomeType {
 }
 @Component({
   selector: 'app-home',
-  imports: [MatButtonModule, CommonModule, RouterLink],
+  imports: [MatButtonModule, CommonModule, RouterLink, Platforms],
   templateUrl: './home.html',
   styleUrl: './home.css',
   animations: [carouselAnimation(800), slideAnimation(800, 'Y')],
