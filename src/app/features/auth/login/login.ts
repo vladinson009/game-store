@@ -15,7 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 import slideAnimation from '../../../animations/slideAnimation';
-import { LoginUserForm } from '../../../models/user';
+import { LoginCredentials, LoginUserForm } from '../../../models/user';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ import { LoginUserForm } from '../../../models/user';
 })
 export class Login implements OnInit {
   public loginForm: FormGroup<LoginUserForm> | undefined;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
     this.loginForm = this.fb.nonNullable.group({
@@ -48,8 +49,16 @@ export class Login implements OnInit {
       }),
     });
   }
-  public alert() {
-    alert('asd');
+  public loginFormHandler() {
+    if (!this.loginForm || this.loginForm.invalid) {
+      return;
+    }
+    const { username, password } = this.loginForm.value;
+    const credentials: LoginCredentials = {
+      username: username ?? '',
+      password: password ?? '',
+    };
+    this.authService.login(credentials).subscribe();
   }
   public resetInput(event: MouseEvent, inputName: string): void {
     event.preventDefault();

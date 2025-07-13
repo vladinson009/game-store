@@ -16,9 +16,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
-import { RegisterUserForm } from '../../../models/user';
+import { RegisterCredentials, RegisterUserForm } from '../../../models/user';
 import { matchPasswordValidator } from '../../../shared/utils/repassValidator';
 import slideAnimation from '../../../animations/slideAnimation';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +31,6 @@ import slideAnimation from '../../../animations/slideAnimation';
     MatIcon,
     ReactiveFormsModule,
     RouterLink,
-    MatToolbar,
-    MatCard,
-    MatCardTitle,
-    MatCardContent,
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -41,7 +38,7 @@ import slideAnimation from '../../../animations/slideAnimation';
 })
 export class Register implements OnInit {
   public registerForm: FormGroup<RegisterUserForm> | undefined;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
     this.registerForm = this.fb.nonNullable.group(
@@ -70,12 +67,23 @@ export class Register implements OnInit {
       { validators: [matchPasswordValidator('password', 'repass')] }
     );
   }
-  public alert() {
-    alert('asd');
-  }
+
   public resetInput(event: MouseEvent, inputName: string): void {
     event.preventDefault();
     this.registerForm?.get(inputName)?.setValue('');
+  }
+  public registerFormHandler() {
+    if (!this.registerForm || this.registerForm.invalid) {
+      return;
+    }
+    const { username, password, email, repass } = this.registerForm.value;
+    const credentials: RegisterCredentials = {
+      username: username ?? '',
+      password: password ?? '',
+      email: email ?? '',
+      repass: repass ?? '',
+    };
+    this.authService.register(credentials).subscribe();
   }
   ngOnInit(): void {
     this.buildForm();

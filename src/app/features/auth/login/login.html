@@ -1,6 +1,6 @@
 @if (loginForm != undefined) {
 @let form = loginForm.controls;
-<form [formGroup]="loginForm" (ngSubmit)="alert()" class="form" @slideAnimation>
+<form [formGroup]="loginForm" (ngSubmit)="loginFormHandler()" class="form" @slideAnimation>
     <h1>Login Form</h1>
     <!-- Username Input Field -->
     <mat-form-field>

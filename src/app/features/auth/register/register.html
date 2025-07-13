@@ -1,6 +1,6 @@
 @if (registerForm != undefined) {
 @let form = registerForm.controls;
-<form [formGroup]="registerForm" (ngSubmit)="alert()" class="form" @slideAnimation>
+<form [formGroup]="registerForm" (ngSubmit)="registerFormHandler()" class="form" @slideAnimation>
     <h1>Register Form</h1>
     <!-- Username Input Field -->
     <mat-form-field>
