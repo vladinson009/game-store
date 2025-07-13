@@ -35,8 +35,13 @@ a:hover {
   gap: 1rem;
   font-size: 1.5rem;
 }
+.info {
+  display: flex;
+  gap: 1rem;
+}
 .info > * {
   display: flex;
+  flex-shrink: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
