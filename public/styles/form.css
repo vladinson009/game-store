@@ -1,0 +1,43 @@
+.form-title {
+  text-align: center;
+  color: var(--alternate-color);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 6rem auto;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  background-color: var(--bg-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  gap: 1em;
+}
+.form-btn {
+  align-self: center;
+}
+.form-btn:disabled {
+  background-color: gray !important;
+}
+
+.form-hint {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 14px;
+  color: var(--alternate-color);
+}
+
+.link {
+  color: var(--clickable-text);
+  text-decoration: none;
+  margin-left: 4px;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+.server-error {
+  text-align: center;
+}

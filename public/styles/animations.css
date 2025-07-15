@@ -1,0 +1,12 @@
+.pulse {
+  animation: smoothPulse 2s ease-in-out infinite;
+}
+
+.jump-on-hover {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.jump-on-hover:hover {
+  animation: jump 0.4s ease;
+}
