@@ -5,7 +5,6 @@ import carouselAnimation from '../../animations/carouselAnimation';
 import slideAnimation from '../../animations/slideAnimation';
 import { RouterLink } from '@angular/router';
 import { Platforms } from '../../shared/components/platforms/platforms';
-
 export interface HomeType {
   name: string;
   message: string;
