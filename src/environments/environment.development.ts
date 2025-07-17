@@ -4,5 +4,6 @@ export const environment = {
     login: '/users/login',
     register: '/users/register',
     logout: '/users/logout',
+    me: '/users/me',
   },
 };
