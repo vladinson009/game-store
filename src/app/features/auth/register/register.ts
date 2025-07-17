@@ -1,5 +1,5 @@
 import { RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,8 +8,6 @@ import {
 } from '@angular/forms';
 
 //? Material
-import { MatToolbar } from '@angular/material/toolbar';
-import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +18,7 @@ import { RegisterCredentials, RegisterUserForm } from '../../../models/user';
 import { matchPasswordValidator } from '../../../shared/utils/repassValidator';
 import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
+import { FocusInput } from '../../../shared/directives/focus-input.directive';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +30,7 @@ import { AuthService } from '../../../core/services/auth.service';
     MatIcon,
     ReactiveFormsModule,
     RouterLink,
+    FocusInput,
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -38,6 +38,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class Register implements OnInit {
   public registerForm: FormGroup<RegisterUserForm> | undefined;
+  private serverErrorMessageSignal = signal<string | null>(null);
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
@@ -45,7 +46,6 @@ export class Register implements OnInit {
       {
         username: this.fb.nonNullable.control('', {
           validators: [Validators.required, Validators.minLength(3)],
-          // updateOn: 'blur',
         }),
         email: this.fb.nonNullable.control('', {
           validators: [
@@ -53,25 +53,18 @@ export class Register implements OnInit {
             Validators.minLength(3),
             Validators.email,
           ],
-          // updateOn: 'blur',
         }),
         password: this.fb.nonNullable.control('', {
           validators: [Validators.required, Validators.minLength(3)],
-          // updateOn: 'change',
         }),
         repass: this.fb.nonNullable.control('', {
           validators: [Validators.required],
-          // updateOn: 'change',
         }),
       },
       { validators: [matchPasswordValidator('password', 'repass')] }
     );
   }
 
-  public resetInput(event: MouseEvent, inputName: string): void {
-    event.preventDefault();
-    this.registerForm?.get(inputName)?.setValue('');
-  }
   public registerFormHandler() {
     if (!this.registerForm || this.registerForm.invalid) {
       return;
@@ -83,7 +76,21 @@ export class Register implements OnInit {
       email: email ?? '',
       repass: repass ?? '',
     };
-    this.authService.register(credentials).subscribe();
+    this.authService.register(credentials).subscribe({
+      error: (err) => {
+        this.registerForm?.controls.password.reset();
+        this.registerForm?.controls.repass.reset();
+        this.serverErrorMessageSignal.set(err.error.error);
+      },
+    });
+  }
+
+  public resetInput(
+    event: MouseEvent,
+    inputName: keyof RegisterUserForm
+  ): void {
+    event.preventDefault();
+    this.registerForm?.get(inputName)?.setValue('');
   }
   ngOnInit(): void {
     this.buildForm();
