@@ -7,4 +7,5 @@ export const authEndpoints = {
   login: baseUrl + usersUrl.login,
   register: baseUrl + usersUrl.register,
   logout: baseUrl + usersUrl.logout,
+  me: baseUrl + usersUrl.me,
 };
