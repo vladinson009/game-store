@@ -35,7 +35,7 @@ export class UiService {
     if (action && config.redirectTo) {
       snackBarRef
         .onAction()
-        .subscribe(() => this.router.navigate([config.redirectTo!]));
+        .subscribe(() => this.router.navigate([config.redirectTo]));
     }
   }
 }

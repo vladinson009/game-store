@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import type {
   AuthUserResponse,
@@ -19,24 +19,18 @@ import { UiService } from './ui.service';
 })
 export class AuthService {
   private _userData = signal<AuthUserResponse | null>(null);
+  public user = this._userData.asReadonly();
   public isLoggedIn = computed(() => !!this._userData());
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private uiService: UiService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  public get user() {
-    return this._userData;
-  }
   private setLocalStorage(token: string) {
     localStorage.setItem(tokenStorage, token);
   }
   public getLocalStorage() {
     return localStorage.getItem(tokenStorage);
   }
-  private clearLocalStorage() {
+  public clearLocalStorage() {
     localStorage.removeItem(tokenStorage);
   }
   public login(credentials: LoginCredentials): Observable<AuthUserResponse> {
@@ -65,41 +59,20 @@ export class AuthService {
   }
   public logout() {
     return this.http
-      .get<Observable<AuthUserResponse>>(authEndpoints.logout, {
-        headers: { 'x-authorization': this.user()?.token || 'magic-string' },
-      })
+      .get<Observable<AuthUserResponse>>(authEndpoints.logout)
       .pipe(
         tap(() => {
           this._userData.set(null);
           this.clearLocalStorage();
           this.router.navigate(['/']);
-        }),
-        catchError((error) => {
-          this.clearLocalStorage();
-          this.uiService.openSnackBar('Unauthorized Logout Request', '', 8000, {
-            redirectTo: '/',
-          });
-          return throwError(() => error);
         })
       );
   }
   public retrieveUser(): Observable<AuthUserResponse> {
-    const token = this.getLocalStorage() || 'magic-string';
-    return this.http
-      .get<AuthUserResponse>(authEndpoints.me, {
-        headers: { 'x-authorization': token },
+    return this.http.get<AuthUserResponse>(authEndpoints.me).pipe(
+      tap((res) => {
+        this._userData.set(res);
       })
-      .pipe(
-        tap((res) => {
-          this._userData.set(res);
-        }),
-        catchError((error) => {
-          this.clearLocalStorage();
-          this.uiService.openSnackBar('Invalid Session', 'Login Here', 8000, {
-            redirectTo: '/users/login',
-          });
-          return throwError(() => error);
-        })
-      );
+    );
   }
 }
