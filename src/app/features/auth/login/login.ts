@@ -37,7 +37,8 @@ import { FocusInput } from '../../../shared/directives/focus-input.directive';
 })
 export class Login implements OnInit {
   public loginForm: FormGroup<LoginUserForm> | undefined;
-  private serverErrorMessageSignal = signal<string | null>(null);
+  private _serverErrorMessageSignal = signal<string | null>(null);
+  public serverErrorMessageSignal = this._serverErrorMessageSignal.asReadonly();
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -63,7 +64,7 @@ export class Login implements OnInit {
     this.authService.login(credentials).subscribe({
       error: (err) => {
         this.loginForm?.controls.password.reset();
-        this.serverErrorMessageSignal.set(err.error.error);
+        this._serverErrorMessageSignal.set(err.error.error);
       },
     });
   }

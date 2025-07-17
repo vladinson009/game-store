@@ -38,7 +38,8 @@ import { FocusInput } from '../../../shared/directives/focus-input.directive';
 })
 export class Register implements OnInit {
   public registerForm: FormGroup<RegisterUserForm> | undefined;
-  private serverErrorMessageSignal = signal<string | null>(null);
+  private _serverErrorMessageSignal = signal<string | null>(null);
+  public serverErrorMessageSignal = this._serverErrorMessageSignal.asReadonly();
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
@@ -80,7 +81,7 @@ export class Register implements OnInit {
       error: (err) => {
         this.registerForm?.controls.password.reset();
         this.registerForm?.controls.repass.reset();
-        this.serverErrorMessageSignal.set(err.error.error);
+        this._serverErrorMessageSignal.set(err.error.error);
       },
     });
   }
