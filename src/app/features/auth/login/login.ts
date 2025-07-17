@@ -1,5 +1,5 @@
 import { RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,7 @@ import { MatIcon } from '@angular/material/icon';
 import slideAnimation from '../../../animations/slideAnimation';
 import { LoginCredentials, LoginUserForm } from '../../../models/user';
 import { AuthService } from '../../../core/services/auth.service';
+import { FocusInput } from '../../../shared/directives/focus-input.directive';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ import { AuthService } from '../../../core/services/auth.service';
     MatIcon,
     ReactiveFormsModule,
     RouterLink,
+    FocusInput,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -35,17 +37,17 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class Login implements OnInit {
   public loginForm: FormGroup<LoginUserForm> | undefined;
+  private serverErrorMessageSignal = signal<string | null>(null);
+
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
     this.loginForm = this.fb.nonNullable.group({
       username: this.fb.nonNullable.control('', {
         validators: [Validators.required, Validators.minLength(3)],
-        // updateOn: 'change',
       }),
       password: this.fb.nonNullable.control<string>('', {
         validators: [Validators.required, Validators.minLength(3)],
-        // updateOn: 'change',
       }),
     });
   }
@@ -58,9 +60,14 @@ export class Login implements OnInit {
       username: username ?? '',
       password: password ?? '',
     };
-    this.authService.login(credentials).subscribe();
+    this.authService.login(credentials).subscribe({
+      error: (err) => {
+        this.loginForm?.controls.password.reset();
+        this.serverErrorMessageSignal.set(err.error.error);
+      },
+    });
   }
-  public resetInput(event: MouseEvent, inputName: string): void {
+  public resetInput(event: MouseEvent, inputName: keyof LoginUserForm): void {
     event.preventDefault();
     this.loginForm?.get(inputName)?.setValue('');
   }
