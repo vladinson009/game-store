@@ -5,96 +5,15 @@
         <h2>We have games for the following platforms</h2>
     </div>
     <div class="card-wrapper">
-        <mat-card class="card jump-on-hover" appearance="filled">
+        @for (pr of platforms; track $index) {
+        <mat-card @fadeLeftAnimation class="card jump-on-hover" appearance="filled">
             <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
+                <img mat-card-sm-image [src]="pr.imageUrl">
             </mat-card-header>
             <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
+                <mat-card-title>{{pr.name}}</mat-card-title>
             </mat-card-content>
-        </mat-card>
+        </mat-card>} @empty{}
 
-        <mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card><mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card><mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card><mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card><mat-card class="card jump-on-hover" appearance="filled">
-            <mat-card-header>
-                <img mat-card-sm-image
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png">
-            </mat-card-header>
-            <mat-card-content>
-                <mat-card-title>XboX</mat-card-title>
-            </mat-card-content>
-        </mat-card>
     </div>
 </section>
