@@ -1,16 +1,104 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <h2>Game Store</h2>
-        <span class="spacer"></span>
+<section class="games">
 
-        <div class="example-label">Elevated</div>
-        <div class="example-button-row">
-            <button matButton="elevated">Basic</button>
-            <button matButton="elevated" disabled>Disabled</button>
-            <a matButton="elevated" href="https://www.google.com/" target="_blank">Link</a>
-        </div>
-        <a matButton="filled" color="accent" routerLink="/games" routerLinkActive="active">Products</a>
-        <a mat-button color="primary" routerLink="/" routerLinkActive="active">Other</a>
+    <div class="search" @slideAnimation>
+        <h1 class="title">Game Catalogue</h1>
 
-    </mat-toolbar-row>
-</mat-toolbar>
+        <mat-form-field class="form-field">
+            <mat-label>Search</mat-label>
+            <input matInput appFocusInput>
+            <button matSuffix matIconButton aria-label="Search" type="submit">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="cards-container" @slideAnimation>
+        <mat-card class="card" appearance="raised">
+            <mat-card-content class="img-container">
+                <img mat-card-lg-image
+                    src="https://images.unsplash.com/flagged/photo-1560177776-295b9cd779de?q=80&w=1004&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Image of a Shiba Inu">
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group class="card-title">
+                    <mat-card-title>Counter Strike</mat-card-title>
+                    <mat-card-subtitle style="color: silver;">xBox, PS5</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <span class="spacer"></span>
+            <mat-card-actions class="btn-actions">
+                <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button>
+                <!-- <button matButton><mat-icon>thumb_down_off_alt</mat-icon></button> -->
+                <button matButton="elevated">Details<mat-icon>info</mat-icon></button>
+            </mat-card-actions>
+        </mat-card><mat-card class="card" appearance="raised">
+            <mat-card-content class="img-container">
+                <img mat-card-lg-image
+                    src="https://warcraft.wiki.gg/images/thumb/2/2e/WC3tFT-logo.png/1200px-WC3tFT-logo.png?5b9c17"
+                    alt="Image of a Shiba Inu">
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group class="card-title">
+                    <mat-card-title>World of Warcraft: The Frozen Throne</mat-card-title>
+                    <mat-card-subtitle style="color: silver;">PC, XBOX, PS5</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <span class="spacer"></span>
+            <mat-card-actions class="btn-actions">
+                <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button>
+                <!-- <button matButton><mat-icon>thumb_down_off_alt</mat-icon></button> -->
+                <button matButton="elevated">Details<mat-icon>info</mat-icon></button>
+            </mat-card-actions>
+        </mat-card><mat-card class="card" appearance="raised">
+            <mat-card-content class="img-container">
+                <img mat-card-lg-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
+                    alt="Image of a Shiba Inu">
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group class="card-title">
+                    <mat-card-title>Counter Strike</mat-card-title>
+                    <mat-card-subtitle>Meer Strikntedium</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <span class="spacer"></span>
+            <mat-card-actions class="btn-actions">
+                <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button>
+                <!-- <button matButton><mat-icon>thumb_down_off_alt</mat-icon></button> -->
+                <button matButton="elevated">Details<mat-icon>info</mat-icon></button>
+            </mat-card-actions>
+        </mat-card><mat-card class="card" appearance="raised">
+            <mat-card-content class="img-container">
+                <img mat-card-lg-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
+                    alt="Image of a Shiba Inu">
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group class="card-title">
+                    <mat-card-title>Counter Strike</mat-card-title>
+                    <mat-card-subtitle>Meer Strikntedium</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <span class="spacer"></span>
+            <mat-card-actions class="btn-actions">
+                <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button>
+                <!-- <button matButton><mat-icon>thumb_down_off_alt</mat-icon></button> -->
+                <button matButton="elevated">Details<mat-icon>info</mat-icon></button>
+            </mat-card-actions>
+        </mat-card><mat-card class="card" appearance="raised">
+            <mat-card-content class="img-container">
+                <img mat-card-lg-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
+                    alt="Image of a Shiba Inu">
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group class="card-title">
+                    <mat-card-title>Counter qwfqwef ef wef wef Strike</mat-card-title>
+                    <mat-card-subtitle>Meer Strikntedium</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <span class="spacer"></span>
+            <mat-card-actions class="btn-actions">
+                <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button>
+                <!-- <button matButton><mat-icon>thumb_down_off_alt</mat-icon></button> -->
+                <button matButton="elevated">Details<mat-icon>info</mat-icon></button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</section>
