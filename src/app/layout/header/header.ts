@@ -7,6 +7,8 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../../core/services/auth.service';
+import slideAnimation from '../../animations/slideAnimation';
+import fadeLeftAnimation from '../../animations/fadeLeftAnimation';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +23,18 @@ import { AuthService } from '../../core/services/auth.service';
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  animations: [slideAnimation(600, 'Y'), fadeLeftAnimation()],
 })
 export class Header {
-  isUser: Signal<boolean>;
-  user;
+  public isUser: Signal<boolean>;
+  public user;
 
   constructor(private authService: AuthService) {
     this.isUser = this.authService.isLoggedIn;
     this.user = this.authService.user;
+  }
+  public logoutEventHandler(e: MouseEvent) {
+    e.preventDefault();
+    this.authService.logout().subscribe();
   }
 }

@@ -1,13 +1,13 @@
 <header>
     <mat-toolbar>
         <mat-toolbar-row>
-            <button class="btn" matButton routerLink="/">
+            <a class="btn" matButton routerLink="/">
                 <mat-icon>sports_esports</mat-icon>
                 <h2>Game Store</h2>
-            </button>
+            </a>
             <span class="spacer"></span>
             @if (isUser()) {
-            <div class="username-container">
+            <div class="username-container" @slideAnimation>
                 <p>Welcome back, <span class="username">{{user()?.username}}</span> 😎</p>
             </div>
             <span class="spacer"></span>
@@ -17,37 +17,34 @@
                 <button class="btn" matButton="outlined" [matMenuTriggerFor]="mainMenu">
                     Menu <mat-icon>apps</mat-icon>
                 </button>
-
                 <mat-menu #mainMenu="matMenu">
-                    <button mat-menu-item routerLink="/" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">Home</button>
-                    <button mat-menu-item routerLink="/games" routerLinkActive="active">Games</button>
-                    <button mat-menu-item routerLink="/about-us" routerLinkActive="active">About Us</button>
-                    <button mat-menu-item routerLink="/learn-more" routerLinkActive="active">Learn More</button>
+                    <a mat-menu-item routerLink="/" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">Home</a>
+                    <a mat-menu-item routerLink="/games" routerLinkActive="active">Games</a>
+                    <a mat-menu-item routerLink="/about-us" routerLinkActive="active">About Us</a>
+                    <a mat-menu-item routerLink="/learn-more" routerLinkActive="active">Learn More</a>
                     @if (isUser()) {
-
-
-                    } @else {
+                    <!-- TODO: Routes for logged in users only -->
                     }
                 </mat-menu>
+                <!-- Mat Menu Definition -->
 
                 <!-- User Menu  -->
                 <button class="btn" matButton="outlined" [matMenuTriggerFor]="userMenu">
                     Profile <mat-icon>account_circle</mat-icon>
                 </button>
-
                 <mat-menu #userMenu="matMenu">
                     @if (isUser()) {
-                    <button mat-menu-item routerLink="/users/profile" routerLinkActive="active">Profile</button>
-                    <button mat-menu-item routerLink="/users/logout" routerLinkActive="active">Logout</button>
+                    <a mat-menu-item routerLink="/users/profile" routerLinkActive="active">Profile</a>
+                    <a mat-menu-item href="/users/logout" routerLinkActive="active"
+                        (click)="logoutEventHandler($event)">Logout</a>
                     } @else {
-                    <button mat-menu-item routerLink="/users/login" routerLinkActive="active">Login</button>
-                    <button mat-menu-item routerLink="/users/register" routerLinkActive="active">Register</button>
+                    <a mat-menu-item routerLink="/users/login" routerLinkActive="active">Login</a>
+                    <a mat-menu-item routerLink="/users/register" routerLinkActive="active">Register</a>
                     }
                 </mat-menu>
+                <!-- User Menu  -->
             </div>
-
-
         </mat-toolbar-row>
     </mat-toolbar>
 </header>
