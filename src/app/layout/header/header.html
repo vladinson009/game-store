@@ -21,11 +21,12 @@
                     <a mat-menu-item routerLink="/" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">Home</a>
                     <a mat-menu-item routerLink="/games" routerLinkActive="active">Games</a>
-                    <a mat-menu-item routerLink="/about-us" routerLinkActive="active">About Us</a>
-                    <a mat-menu-item routerLink="/learn-more" routerLinkActive="active">Learn More</a>
                     @if (isUser()) {
+                    <a mat-menu-item routerLink="/games/create" routerLinkActive="active">Create Game</a>
                     <!-- TODO: Routes for logged in users only -->
                     }
+                    <a mat-menu-item routerLink="/about-us" routerLinkActive="active">About Us</a>
+                    <a mat-menu-item routerLink="/learn-more" routerLinkActive="active">Learn More</a>
                 </mat-menu>
                 <!-- Mat Menu Definition -->
 

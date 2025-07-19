@@ -14,8 +14,9 @@ button:hover {
 }
 .active {
   background-color: var(--bg-color);
-  color: white;
+  color: orange !important;
 }
+
 .username-container {
   position: relative;
   overflow: hidden;
