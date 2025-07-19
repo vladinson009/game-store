@@ -34,14 +34,7 @@
   gap: 3em;
 }
 .dots {
-  position: absolute;
-  left: 50%;
-  translate: -50%;
-  bottom: 120%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 1rem;
+  /* align: center; */
 }
 
 .dot {
@@ -68,4 +61,11 @@
   margin: 4rem 0;
   display: flex;
   justify-content: center;
+}
+.newest {
+  background-color: orange;
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  color: white;
+  text-align: center;
 }
