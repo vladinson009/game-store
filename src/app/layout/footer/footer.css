@@ -51,3 +51,8 @@ a:hover {
     font-size: 2rem;
   }
 }
+.circle-numbers {
+  background-color: orange;
+  padding: 0.3rem;
+  border-radius: 6rem;
+}

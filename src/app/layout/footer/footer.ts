@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 //? Material
 import { MatToolbarRow, MatToolbar } from '@angular/material/toolbar';
@@ -10,5 +10,7 @@ import { CopyrightDirective } from '../../shared/directives/copyright.directive'
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
-export class Footer {}
+export class Footer {
+  totalGames = input<number | null>(null);
+}
 //TODO Dynamic Games in our store
