@@ -33,9 +33,6 @@
   flex-direction: column;
   gap: 3em;
 }
-.dots {
-  /* align: center; */
-}
 
 .dot {
   width: 12px;
