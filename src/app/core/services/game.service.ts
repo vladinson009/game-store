@@ -38,4 +38,10 @@ export class GameService {
       gameEndpoints.getAll + '?limit=1'
     );
   }
+  public addLike(id?: string): Observable<any> {
+    return this.http.get<any>(gameEndpoints.like('687bd4e678e76ec4306a3ca5'));
+  }
+  public pullLike(id: string): Observable<any> {
+    return this.http.get<any>(gameEndpoints.unlike(id));
+  }
 }
