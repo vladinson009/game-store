@@ -1,0 +1,184 @@
+@if (createGameForm != undefined) {
+@let form = createGameForm.controls;
+<form [formGroup]="createGameForm" (ngSubmit)="createGameHandler()" class="form" @slideAnimation>
+    <h1 class="form-title">Create Game</h1>
+    <!-- Title input field -->
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" appFocusInput>
+        <!--?Clear input button  -->
+        @if (form.title.value) {
+        <button matSuffix matIconButton (click)="resetInput($event, 'title')" tabindex="-1" type="button"
+            aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.title.hasError('required') && form.title.touched){
+        <mat-error>Title is required!</mat-error>
+        }
+        @else if (form.title.hasError('minlength') && form.title.touched) {
+        <mat-error>Title must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Title input field -->
+
+
+    <!-- Description input field -->
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+        <!--?Clear input button  -->
+        @if (form.description.value) {
+        <button matSuffix matIconButton (click)="resetInput($event, 'description')" tabindex="-1" type="button"
+            aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.description.hasError('required') && form.description.touched){
+        <mat-error>Description is required!</mat-error>
+        }
+        @else if (form.description.hasError('minlength') && form.description.touched) {
+        <mat-error>Description must be at least 3 characters long!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Description input field -->
+
+    <!-- Price input field -->
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" type="number">
+        <!--?Clear input button  -->
+        @if (form.price.value) {
+        <button matSuffix matIconButton (click)="resetInput($event, 'price')" tabindex="-1" type="button"
+            aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if (form.price.hasError('notANumber') && form.price.touched) {
+        <mat-error>Enter a valid number!</mat-error>
+        }
+        @else if (form.price.hasError('required') && form.price.touched) {
+        <mat-error>Price is required!</mat-error>
+        }
+        @else if (form.price.hasError('min') && form.price.touched) {
+        <mat-error>Price must be a positive number!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Price input field -->
+
+
+    <!-- Release Date input field -->
+    <mat-form-field>
+        <mat-label>Release date</mat-label>
+        <input matInput type="date" formControlName="releaseDate">
+        <!--?Clear input button  -->
+        @if (form.releaseDate.value) {
+        <button matSuffix matIconButton (click)="resetInput($event, 'releaseDate')" tabindex="-1" type="button"
+            aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+        <!--?Clear input button  -->
+        <!--!Error messages  -->
+        @if(form.releaseDate.hasError('required') && form.releaseDate.touched){
+        <mat-error>Release date is required!</mat-error>
+        }
+        @else if (form.releaseDate.hasError('invalidDate') && form.releaseDate.touched) {
+        <mat-error>Please add a valid date!</mat-error>
+        }
+        <!--!Error messages  -->
+    </mat-form-field>
+    <!-- Release Date input field -->
+
+    <!-- Platform input field -->
+    <mat-form-field appearance="fill">
+        <mat-label>Platforms</mat-label>
+        <mat-select formControlName="platforms" multiple [disabled]="platforms.length === 0">
+            @for (platform of platforms; track platform._id){
+            <mat-option [value]="platform._id">
+                {{ platform.name }}
+            </mat-option>
+            } @empty { }
+        </mat-select>
+        @if (form.platforms.invalid && form.platforms.touched) {
+        <mat-error>
+            Select at least one platform
+        </mat-error>
+        }
+    </mat-form-field>
+    <!-- Platform input field -->
+
+    <!-- Category input field -->
+    <mat-form-field appearance="fill">
+        <mat-label>Categories</mat-label>
+        <mat-select formControlName="categories" multiple [disabled]="categories.length === 0">
+            @for (category of categories; track category._id){
+            <mat-option [value]="category._id">
+                {{ category.name }}
+            </mat-option>
+            } @empty { }
+        </mat-select>
+        @if (form.categories.invalid && form.categories.touched) {
+        <mat-error>
+            Select at least one category
+        </mat-error>
+        }
+    </mat-form-field>
+    <!-- Category input field -->
+
+
+    <!-- Image input field -->
+    <div class="custom-file-upload">
+
+        <div class="file-upload-wrapper">
+
+
+            <label class="upload-image" for="imageInput">
+                <button type="button" matButton="elevated">Uplaod Image</button>
+                <input id="imageInput" type="file" (change)="onFileSelected($event)" class="file-input"
+                    [class.invalid]="form.image.invalid && form.image.touched"></label>
+
+            <!--?Clear input button  -->
+            @if (form.image.value) {
+            <p class="file-name">{{ form.image.value.name }}</p>
+            }
+
+            <!--?Clear input button  -->
+            <!--!Error messages  -->
+            @if(form.image.hasError('required') && form.image.touched){
+            <mat-error>Image is required!</mat-error>
+            }
+            <!--!Error messages  -->
+        </div>
+        @if (form.image.value) {
+        <button class="close-btn" matSuffix matIconButton (click)="resetInput($event, 'image')" tabindex="-1"
+            type="button" aria-label="Clear">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+    </div>
+    <!-- Image input field -->
+
+    @if (serverErrorMessageSignal()) {
+    <mat-error class="server-error">{{serverErrorMessageSignal()}}</mat-error>
+    }
+    <!-- Submit Button -->
+    <button class="form-btn" matButton="filled" type="submit" [disabled]="createGameForm.invalid">Create Game</button>
+    <!-- Submit Button -->
+
+    <!-- <p class="form-hint">
+        Already a customer?
+        <a routerLink="/users/login" class="link">Login here</a>
+    </p> -->
+</form>
+
+}
