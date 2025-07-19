@@ -1,5 +1,5 @@
 .title {
-  color: white;
+  color: orange;
   text-shadow: 2px 2px 4px var(--bg-color);
 }
 
@@ -15,8 +15,7 @@
   flex-direction: column;
   align-items: center;
 }
-.form-field {
-}
+
 .cards-container {
   display: flex;
   justify-content: center;
@@ -26,25 +25,4 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 20vw));
   gap: 1rem;
   background-color: red; */
-}
-.card {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  align-items: center;
-  flex-basis: 250px;
-  box-shadow: 1px;
-  box-shadow: 0 4px 5px 5px rgb(0, 0, 0, 0.3);
-}
-.card-title {
-  /* background-color: red; */
-  margin-bottom: 0.5rem;
-}
-.btn-actions {
-  /* justify-self: flex-end; */
-  display: flex;
-  gap: 1rem;
-}
-.img-container {
-  border-radius: 50%;
 }
