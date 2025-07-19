@@ -1,0 +1,10 @@
+.paginator {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: orange;
+  font-weight: bold;
+  margin-top: 20rem;
+  padding: 0.3rem 1rem;
+  border-radius: 5rem;
+}
