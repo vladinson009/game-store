@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import fadeLeftAnimation from '../../../animations/fadeLeftAnimation';
+import { PlatformService } from '../../../core/services/platform.service';
+import { PlatformData } from '../../../models/platform';
 
 @Component({
   selector: 'app-platforms',
@@ -9,117 +11,14 @@ import fadeLeftAnimation from '../../../animations/fadeLeftAnimation';
   styleUrl: './platforms.css',
   animations: [fadeLeftAnimation()],
 })
-export class Platforms {
-  platforms = [
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-    {
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/2048px-Xbox_one_logo.svg.png',
-      name: 'xBox',
-    },
-  ];
+export class Platforms implements OnInit {
+  public platforms = signal<PlatformData[]>([]);
+
+  constructor(private platformService: PlatformService) {}
+
+  ngOnInit() {
+    this.platformService.getAll().subscribe((res) => {
+      this.platforms.set(res.data);
+    });
+  }
 }

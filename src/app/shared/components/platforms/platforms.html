@@ -2,10 +2,10 @@
 
 
     <div>
-        <h2>We have games for the following platforms</h2>
+        <h2 class="platforms-title">We have games for the following platforms</h2>
     </div>
     <div class="card-wrapper">
-        @for (pr of platforms; track $index) {
+        @for (pr of platforms(); track pr._id) {
         <mat-card @fadeLeftAnimation class="card jump-on-hover" appearance="filled">
             <mat-card-header>
                 <img mat-card-sm-image [src]="pr.imageUrl">
