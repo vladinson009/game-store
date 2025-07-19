@@ -12,11 +12,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const uiService = inject(UiService);
 
-  const user = authService.user();
+  const token = authService.user()?.token || authService.getLocalStorage();
 
-  if (user) {
+  if (token) {
     const authReq = req.clone({
-      setHeaders: { 'x-authorization': user.token },
+      setHeaders: { 'x-authorization': token },
     });
     return next(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -33,6 +33,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       })
     );
   }
-
   return next(req);
 };
