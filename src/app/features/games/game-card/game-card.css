@@ -1,0 +1,24 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 360px;
+  width: 250px;
+  flex-basis: 250px;
+  box-shadow: 1px;
+  box-shadow: 0 4px 5px 5px rgb(0, 0, 0, 0.3);
+}
+.card-title {
+  margin-bottom: 0.5rem;
+  /* background-color: red; */
+}
+.btn-actions {
+  display: flex;
+  gap: 1rem;
+}
+.img-container {
+  border-radius: 50%;
+}
+.subtitle {
+  color: silver;
+}
