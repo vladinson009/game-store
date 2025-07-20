@@ -74,9 +74,6 @@ export class CreateGame implements OnInit {
       price: this.fb.nonNullable.control<number | undefined>(undefined, {
         validators: [numberValidator, Validators.required, Validators.min(1)],
       }),
-      // author: this.fb.nonNullable.control('', {
-      //   validators: [Validators.required],
-      // }),
       releaseDate: this.fb.nonNullable.control<Date | undefined>(undefined, {
         validators: [dateValidator, Validators.required],
       }),
@@ -111,14 +108,16 @@ export class CreateGame implements OnInit {
       console.log('No image');
       return;
     }
+
     const formData = new FormData();
     formData.append('image', image, image.name);
     formData.append('key', 'c0f89984ba2349c19405d4fbd9c3e0c2');
 
+    this.isLoading.set(true);
+
     this.gameService.uploadImage(formData).subscribe({
       next: (res: any) => {
         const imageUrl = res.data.url;
-        this.isLoading.set(true);
 
         const userInput = {
           title: title ?? '',
