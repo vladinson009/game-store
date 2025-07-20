@@ -27,12 +27,14 @@
         <mat-slide-toggle [(ngModel)]="disabled">Disabled</mat-slide-toggle>
     </div>
 </div> -->
+@if (pagination()) {
 
-<mat-paginator #paginator class="paginator" (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
-    [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
-    aria-label="Select page">
+<mat-paginator class="paginator" (page)="handlePageEvent($event)" [length]="pagination()?.total"
+    [pageSize]="pagination()?.limit" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+    [pageIndex]="pagination()?.page" aria-label="Select page">
 </mat-paginator>
+}
 
 <!-- <div class="demo-data">
     <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>

@@ -11,11 +11,13 @@ import carouselAnimation from '../../../animations/carouselAnimation';
 import { Paginator } from '../../../shared/components/paginator/paginator';
 import { GameService } from '../../../core/services/game.service';
 import {
+  Author,
   GameCollectionSingleResponse,
   GamesCollectionResponse,
 } from '../../../models/game';
 import { GameCard } from '../game-card/game-card';
 import { AuthService } from '../../../core/services/auth.service';
+import { Pagination } from '../../../models/pagination';
 
 @Component({
   selector: 'app-game-list',
@@ -38,12 +40,9 @@ import { AuthService } from '../../../core/services/auth.service';
   ],
 })
 export class GameList implements OnInit {
-  public games = signal<GameCollectionSingleResponse[] | null>(null);
+  public games = signal<GameCollectionSingleResponse[] | undefined>(undefined);
   public userId = signal<string | undefined>(undefined);
-  public limit = signal<number | null>(null);
-  public page = signal<number | null>(null);
-  public total = signal<number | null>(null);
-  public totalPage = signal<number | null>(null);
+  public pagination = signal<Pagination | null>(null);
 
   constructor(
     private gameService: GameService,
@@ -53,13 +52,37 @@ export class GameList implements OnInit {
   ngOnInit(): void {
     this.gameService.getAll().subscribe((res: GamesCollectionResponse) => {
       this.games.set(res.data);
-      this.limit.set(res.pagination.limit);
-      this.page.set(res.pagination.page);
-      this.total.set(res.pagination.total);
-      this.totalPage.set(res.pagination.totalPages);
+      this.pagination.set(res.pagination);
 
       this.userId.set(this.authService.user()?._id);
     });
   }
-  onToggleLike(game: GameCollectionSingleResponse) {}
+  onToggleLike(game: GameCollectionSingleResponse) {
+    const userId = this.userId();
+    const isLiked = game.likes?.some((l) => l._id == userId);
+
+    if (isLiked) {
+      this.gameService.pullLike(game._id).subscribe(() => {
+        game.likes = game.likes?.filter((l) => l._id !== userId);
+        this.games.update((games) =>
+          games?.map((g) =>
+            g._id === game._id ? { ...g, likes: game.likes } : g
+          )
+        );
+      });
+    } else {
+      this.gameService.addLike(game._id).subscribe(() => {
+        // Add user to likes
+        const currentUser = this.authService.user();
+        if (currentUser) {
+          game.likes = [...(game.likes ?? []), { _id: currentUser._id }];
+          this.games.update((games) =>
+            games?.map((g) =>
+              g._id === game._id ? { ...g, likes: game.likes } : g
+            )
+          );
+        }
+      });
+    }
+  }
 }
