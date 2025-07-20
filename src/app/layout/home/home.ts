@@ -38,10 +38,7 @@ export interface HomeType {
   animations: [carouselAnimation(800), slideAnimation(800, 'Y')],
 })
 export class Home implements OnInit {
-  private intervalId: null | number = null;
   public isLoading = signal(true);
-  public activeIndex = 0;
-
   public testimonial = signal<GameCollectionSingleResponse[] | []>([]);
 
   constructor(private gameService: GameService) {}
