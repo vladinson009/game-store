@@ -1,5 +1,8 @@
 @if (createGameForm != undefined) {
 @let form = createGameForm.controls;
+
+
+
 <form [formGroup]="createGameForm" (ngSubmit)="createGameHandler()" class="form" @slideAnimation>
     <h1 class="form-title">Create Game</h1>
     <!-- Title input field -->
@@ -143,7 +146,7 @@
 
 
             <label class="upload-image" for="imageInput">
-                <button type="button" matButton="elevated">Uplaod Image</button>
+                <button type="button" matButton="elevated"><mat-icon>file_upload</mat-icon>Uplaod Image</button>
                 <input id="imageInput" type="file" (change)="onFileSelected($event)" class="file-input"
                     [class.invalid]="form.image.invalid && form.image.touched"></label>
 
@@ -172,7 +175,12 @@
     <mat-error class="server-error">{{serverErrorMessageSignal()}}</mat-error>
     }
     <!-- Submit Button -->
+    @if (isLoading()) {
+    <mat-spinner class="spinner-create" />
+    } @else {
+
     <button class="form-btn" matButton="filled" type="submit" [disabled]="createGameForm.invalid">Create Game</button>
+    }
     <!-- Submit Button -->
 
     <!-- <p class="form-hint">

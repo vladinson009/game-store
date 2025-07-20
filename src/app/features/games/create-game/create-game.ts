@@ -29,6 +29,7 @@ import { minSelectedValidator } from '../../../shared/utils/minSelectedValidator
 import { numberValidator } from '../../../shared/utils/numberValidator';
 import { CategoriesData } from '../../../models/categories';
 import { CategoryService } from '../../../core/services/category.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-create-game',
@@ -40,6 +41,7 @@ import { CategoryService } from '../../../core/services/category.service';
     MatIcon,
     ReactiveFormsModule,
     FocusInput,
+    MatProgressSpinner,
   ],
   templateUrl: './create-game.html',
   styleUrl: './create-game.css',
@@ -51,6 +53,7 @@ export class CreateGame implements OnInit {
   public serverErrorMessageSignal = this._serverErrorMessageSignal.asReadonly();
   public platforms: PlatformData[] = [];
   public categories: CategoriesData[] = [];
+  public isLoading = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -93,6 +96,7 @@ export class CreateGame implements OnInit {
     if (!this.createGameForm || this.createGameForm.invalid) {
       return;
     }
+
     const {
       title,
       description,
@@ -103,19 +107,41 @@ export class CreateGame implements OnInit {
       categories,
     } = this.createGameForm.value;
 
-    const userInput = {
-      title: title ?? '',
-      description: description ?? '',
-      price: price ?? 0,
-      author: this.authService.user()!._id,
-      imageUrl: image!.name,
-      releaseDate: releaseDate ?? new Date(),
-      platforms: platforms ?? [],
-      categories: categories ?? [],
-    };
-    this.gameService.createGame(userInput).subscribe({
+    if (!image) {
+      console.log('No image');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    formData.append('key', 'c0f89984ba2349c19405d4fbd9c3e0c2');
+
+    this.gameService.uploadImage(formData).subscribe({
+      next: (res: any) => {
+        const imageUrl = res.data.url;
+        this.isLoading.set(true);
+
+        const userInput = {
+          title: title ?? '',
+          description: description ?? '',
+          price: price ?? 0,
+          author: this.authService.user()!._id,
+          imageUrl: imageUrl,
+          releaseDate: releaseDate ?? new Date(),
+          platforms: platforms ?? [],
+          categories: categories ?? [],
+        };
+        this.gameService.createGame(userInput).subscribe({
+          error: (err) => {
+            this._serverErrorMessageSignal.set(err.error.error);
+          },
+        });
+      },
       error: (err) => {
-        this._serverErrorMessageSignal.set(err.error.error);
+        console.error('ImgBB upload failed', err);
+        this._serverErrorMessageSignal.set('Image upload failed');
+      },
+      complete: () => {
+        this.isLoading.set(false);
       },
     });
   }
@@ -128,7 +154,6 @@ export class CreateGame implements OnInit {
       this.createGameForm?.get('image')?.markAsDirty();
       this.createGameForm?.get('image')?.updateValueAndValidity();
     }
-    console.log(this.createGameForm?.controls.image);
   }
   public resetInput(
     event: MouseEvent,
