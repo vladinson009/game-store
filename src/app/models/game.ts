@@ -63,7 +63,7 @@ export interface PlatformsFromGame {
   author: string;
   likes?: [];
 }
-interface Author {
+export interface Author {
   _id: string;
   username: string;
   email: string;
