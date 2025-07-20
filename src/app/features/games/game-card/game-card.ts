@@ -1,6 +1,13 @@
-import { Component, EventEmitter, input, output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  input,
+  output,
+  Signal,
+  signal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { GameCollectionSingleResponse } from '../../../models/game';
+import { Author, GameCollectionSingleResponse } from '../../../models/game';
 import { RouterLink } from '@angular/router';
 import { PlatformsPipe } from '../../../shared/pipes/platforms.pipe';
 import { MatIcon } from '@angular/material/icon';
@@ -17,13 +24,19 @@ import { AuthService } from '../../../core/services/auth.service';
 export class GameCard {
   public game = input<GameCollectionSingleResponse>();
   public userId = input<string | undefined>(undefined);
-  public like = output<EventEmitter<{ gameId: string; liked: boolean }>>();
-  ngOnInit() {}
+  public like = output<GameCollectionSingleResponse>();
 
   isLiked() {
-    if (this.userId() === this.game()?.author._id) {
+    if (
+      this.game()?.likes?.findIndex((el: Author) => el._id === this.userId()) !=
+      -1
+    ) {
       return true;
     }
     return false;
+  }
+
+  toggleLike() {
+    this.like.emit(this.game()!);
   }
 }

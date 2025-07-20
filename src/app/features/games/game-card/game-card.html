@@ -17,7 +17,7 @@
     <mat-card-actions class="btn-actions">
 
 
-        <button matButton="tonal">
+        <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
             <mat-icon>
                 {{isLiked() ? 'thumb_down_off_alt' : 'thumb_up_off_alt'}}
             </mat-icon>
