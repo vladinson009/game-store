@@ -19,7 +19,7 @@ export interface GameFormat {
   author: string;
   categories?: string[];
   platforms?: string[];
-  likes?: string[];
+  likes?: { _id: string }[];
 }
 export interface GameFormatResponse extends GameFormat {
   _id: string;
@@ -49,7 +49,7 @@ export interface GameCollectionSingleResponse {
   author: Author;
   createdAt: Date;
   updatedAt: Date;
-  likes?: [];
+  likes?: { _id: string }[];
 }
 interface Categories {
   _id: string;
@@ -61,7 +61,7 @@ export interface PlatformsFromGame {
   name: string;
   imageUrl: string;
   author: string;
-  likes?: [];
+  likes?: string[];
 }
 export interface Author {
   _id: string;
