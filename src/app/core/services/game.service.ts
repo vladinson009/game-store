@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -20,6 +20,9 @@ export class GameService {
     private uiService: UiService
   ) {}
 
+  public uploadImage(formData: FormData) {
+    return this.http.post<any>(gameEndpoints.uploadFileUrl, formData);
+  }
   public createGame(userInput: GameFormat): Observable<GameFormatResponse> {
     return this.http
       .post<GameFormatResponse>(gameEndpoints.create, userInput)
