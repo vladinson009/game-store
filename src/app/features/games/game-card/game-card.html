@@ -14,8 +14,16 @@
         </mat-card-title-group>
     </mat-card-header>
     <span class="spacer"></span>
+    <p class="likes">
+        @if (game()?.likes?.length !== undefined && game()!.likes!.length > 0) {
+        <span class="likes-count">{{game()?.likes?.length}}</span> likes
+        } @else {
+        No likes yet
+        }
+    </p>
     <mat-card-actions class="btn-actions">
 
+        @if(userId()){
 
         <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
             <mat-icon>
@@ -23,6 +31,7 @@
             </mat-icon>
             {{isLiked() ? 'Unlike' : 'Like'}}
         </button>
+        }
 
         <!-- <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button> -->
 

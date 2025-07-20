@@ -1,7 +1,9 @@
 import {
   Component,
+  computed,
   EventEmitter,
   input,
+  OnInit,
   output,
   Signal,
   signal,
@@ -14,6 +16,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/services/auth.service';
+import { GameService } from '../../../core/services/game.service';
 
 @Component({
   selector: 'app-game-card',
@@ -24,19 +27,13 @@ import { AuthService } from '../../../core/services/auth.service';
 export class GameCard {
   public game = input<GameCollectionSingleResponse>();
   public userId = input<string | undefined>(undefined);
-  public like = output<GameCollectionSingleResponse>();
+  public like = output();
 
-  isLiked() {
-    if (
-      this.game()?.likes?.findIndex((el: Author) => el._id === this.userId()) !=
-      -1
-    ) {
-      return true;
-    }
-    return false;
-  }
-
+  public isLiked = computed(
+    () =>
+      this.game()?.likes?.some((like) => like._id === this.userId()) ?? false
+  );
   toggleLike() {
-    this.like.emit(this.game()!);
+    this.like.emit();
   }
 }
