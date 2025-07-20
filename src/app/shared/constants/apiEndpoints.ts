@@ -1,5 +1,6 @@
 import { environment } from '../../../environments/environment';
-
+const imgBBApi =
+  'https://api.imgbb.com/1/upload?key=c0f89984ba2349c19405d4fbd9c3e0c2';
 const baseUrl = environment.baseUrl;
 const usersUrl = environment.authEndpoints;
 const gamesUrl = environment.gameEndpoints;
@@ -20,6 +21,7 @@ export const gameEndpoints = {
   getById: (id: string) => baseUrl + gamesUrl.getById(id),
   like: (id: string) => baseUrl + gamesUrl.like(id),
   unlike: (id: string) => baseUrl + gamesUrl.unlike(id),
+  uploadFileUrl: imgBBApi,
 };
 export const platformEndpoints = {
   getAll: baseUrl + platformsUrl.getAll,
