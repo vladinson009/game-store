@@ -61,4 +61,5 @@ export class GameList implements OnInit {
       this.userId.set(this.authService.user()?._id);
     });
   }
+  onToggleLike(game: GameCollectionSingleResponse) {}
 }

@@ -12,7 +12,7 @@
     </div>
     <div class="cards-container" @slideAnimation>
         @for (game of games(); track game._id) {
-        <app-game-card [game]="game" [userId]="userId()" />
+        <app-game-card [game]="game" [userId]="userId()" (like)="onToggleLike($event)" />
         }
     </div>
     <app-paginator />
