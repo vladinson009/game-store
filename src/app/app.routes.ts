@@ -7,7 +7,7 @@ import { CreateGame } from './features/games/create-game/create-game';
 
 export const routes: Routes = [
   { path: '', component: Home, pathMatch: 'full' },
-  { path: 'games', component: GameList },
+  { path: 'games', component: GameList, pathMatch: 'full' },
   { path: 'games/create', component: CreateGame },
   { path: 'users/login', component: Login },
   { path: 'users/register', component: Register },
