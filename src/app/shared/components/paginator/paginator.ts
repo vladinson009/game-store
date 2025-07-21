@@ -1,5 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, EventEmitter, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,13 +28,10 @@ import { Pagination } from '../../../models/pagination';
 })
 export class Paginator {
   public pagination = input<Pagination | null>();
-  public pageChanged = new EventEmitter<PageEvent>();
+  public pageChanged = output<PageEvent>();
+  public pageIndex = computed(() => (this.pagination()?.page || 1) - 1);
 
-  length = 50;
-  pageSize = 10;
-  pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
-
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
@@ -35,16 +39,5 @@ export class Paginator {
 
   handlePageEvent(e: PageEvent) {
     this.pageChanged.emit(e);
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
   }
-
-  // setPageSizeOptions(setPageSizeOptionsInput: string) {
-  //   if (setPageSizeOptionsInput) {
-  //     this.pageSizeOptions = setPageSizeOptionsInput
-  //       .split(',')
-  //       .map((str) => +str);
-  //   }
-  // }
 }

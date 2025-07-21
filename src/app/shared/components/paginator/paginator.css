@@ -4,7 +4,8 @@
   color: white;
   background-color: orange;
   font-weight: bold;
-  margin-top: 20rem;
+  /* margin-top: 20rem; */
+  margin-top: 2rem;
   padding: 0.3rem 1rem;
   border-radius: 5rem;
 }
