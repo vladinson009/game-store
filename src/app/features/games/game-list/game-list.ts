@@ -5,19 +5,18 @@ import { MatInput } from '@angular/material/input';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import fadeLeftAnimation from '../../../animations/fadeLeftAnimation';
 import slideAnimation from '../../../animations/slideAnimation';
-import carouselAnimation from '../../../animations/carouselAnimation';
 import { Paginator } from '../../../shared/components/paginator/paginator';
 import { GameService } from '../../../core/services/game.service';
 import {
-  Author,
   GameCollectionSingleResponse,
   GamesCollectionResponse,
 } from '../../../models/game';
 import { GameCard } from '../game-card/game-card';
 import { AuthService } from '../../../core/services/auth.service';
 import { Pagination } from '../../../models/pagination';
+import { PageEvent } from '@angular/material/paginator';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game-list',
@@ -30,19 +29,21 @@ import { Pagination } from '../../../models/pagination';
     MatButtonModule,
     Paginator,
     GameCard,
+    CommonModule,
   ],
   templateUrl: './game-list.html',
   styleUrl: './game-list.css',
-  animations: [
-    fadeLeftAnimation(),
-    slideAnimation(1000, 'Y'),
-    carouselAnimation(1000),
-  ],
+  animations: [slideAnimation(1000, 'Y')],
 })
 export class GameList implements OnInit {
   public games = signal<GameCollectionSingleResponse[] | undefined>(undefined);
   public userId = signal<string | undefined>(undefined);
-  public pagination = signal<Pagination | null>(null);
+  public pagination = signal<Pagination>({
+    total: 0,
+    limit: 5,
+    page: 0,
+    totalPages: 0,
+  });
 
   constructor(
     private gameService: GameService,
@@ -50,14 +51,15 @@ export class GameList implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gameService.getAll().subscribe((res: GamesCollectionResponse) => {
-      this.games.set(res.data);
-      this.pagination.set(res.pagination);
+    this.loadGames();
 
-      this.userId.set(this.authService.user()?._id);
-    });
+    // this.gameService.getAll().subscribe((res: GamesCollectionResponse) => {
+    //   this.games.set(res.data);
+    //   this.pagination.set(res.pagination);
+
+    // });
   }
-  onToggleLike(game: GameCollectionSingleResponse) {
+  public onToggleLike(game: GameCollectionSingleResponse) {
     const userId = this.userId();
     const isLiked = game.likes?.some((l) => l._id == userId);
 
@@ -72,7 +74,6 @@ export class GameList implements OnInit {
       });
     } else {
       this.gameService.addLike(game._id).subscribe(() => {
-        // Add user to likes
         const currentUser = this.authService.user();
         if (currentUser) {
           game.likes = [...(game.likes ?? []), { _id: currentUser._id }];
@@ -84,5 +85,28 @@ export class GameList implements OnInit {
         }
       });
     }
+  }
+  private loadGames(): void {
+    const { page, limit } = this.pagination();
+
+    this.gameService
+      .getAll(page, limit)
+      .subscribe((res: GamesCollectionResponse) => {
+        this.userId.set(this.authService.user()?._id);
+        this.games.set(res.data);
+        this.pagination.set(res.pagination);
+      });
+  }
+  public onPageChanged(event: PageEvent): void {
+    const newPagination: Pagination = {
+      total: event.length,
+      limit: event.pageSize,
+      page: event.pageIndex + 1,
+      totalPages: Math.ceil(event.length / event.pageSize),
+    };
+    console.log(newPagination);
+
+    this.pagination.set(newPagination);
+    this.loadGames();
   }
 }

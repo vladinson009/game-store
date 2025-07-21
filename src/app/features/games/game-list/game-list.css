@@ -21,8 +21,4 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 20vw));
-  gap: 1rem;
-  background-color: red; */
 }

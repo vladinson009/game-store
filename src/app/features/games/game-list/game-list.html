@@ -11,9 +11,10 @@
         </mat-form-field>
     </div>
     <div class="cards-container" @slideAnimation>
-        @for (game of games(); track game._id) {
+        @for (game of games(); track game._id ) {
         <app-game-card [game]="game" [userId]="userId()" (like)="onToggleLike(game)" />
         }
     </div>
-    <app-paginator [pagination]="pagination()" />
+
+    <app-paginator [pagination]="pagination()" (pageChanged)="onPageChanged($event)" />
 </section>
