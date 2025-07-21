@@ -33,8 +33,14 @@ export class GameService {
         })
       );
   }
-  public getAll(): Observable<GamesCollectionResponse> {
-    return this.http.get<GamesCollectionResponse>(gameEndpoints.getAll);
+  public getAll(
+    page: number,
+    limit: number
+  ): Observable<GamesCollectionResponse> {
+    const queryString = `?page=${page}&limit=${limit}`;
+    return this.http.get<GamesCollectionResponse>(
+      gameEndpoints.getAll + queryString
+    );
   }
   public getRecent(): Observable<GamesCollectionResponse> {
     return this.http.get<GamesCollectionResponse>(
