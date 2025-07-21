@@ -20,7 +20,8 @@
                 <mat-menu #mainMenu="matMenu">
                     <a mat-menu-item routerLink="/" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">Home</a>
-                    <a mat-menu-item routerLink="/games" routerLinkActive="active">Games</a>
+                    <a mat-menu-item routerLink="/games" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">Games</a>
                     @if (isUser()) {
                     <a mat-menu-item routerLink="/games/create" routerLinkActive="active">Create Game</a>
                     <!-- TODO: Routes for logged in users only -->
