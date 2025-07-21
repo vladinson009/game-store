@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://express-server-cgdv.onrender.com',
   authEndpoints: {
     login: '/users/login',
     register: '/users/register',
