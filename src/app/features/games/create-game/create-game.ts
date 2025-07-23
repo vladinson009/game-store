@@ -30,6 +30,7 @@ import { numberValidator } from '../../../shared/utils/numberValidator';
 import { CategoriesData } from '../../../models/categories';
 import { CategoryService } from '../../../core/services/category.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-create-game',
@@ -81,10 +82,10 @@ export class CreateGame implements OnInit {
         validators: [Validators.required],
       }),
       categories: this.fb.nonNullable.control<string[]>([], {
-        validators: [minSelectedValidator(1), Validators.required],
+        validators: [],
       }),
       platforms: this.fb.nonNullable.control<string[]>([], {
-        validators: [minSelectedValidator(1), Validators.required],
+        validators: [],
       }),
     });
   }
@@ -115,34 +116,34 @@ export class CreateGame implements OnInit {
 
     this.isLoading.set(true);
 
-    this.gameService.uploadImage(formData).subscribe({
-      next: (res: any) => {
-        const imageUrl = res.data.url;
+    this.gameService
+      .uploadImage(formData)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: (res: any) => {
+          const imageUrl = res.data.url;
 
-        const userInput = {
-          title: title ?? '',
-          description: description ?? '',
-          price: price ?? 0,
-          author: this.authService.user()!._id,
-          imageUrl: imageUrl,
-          releaseDate: releaseDate ?? new Date(),
-          platforms: platforms ?? [],
-          categories: categories ?? [],
-        };
-        this.gameService.createGame(userInput).subscribe({
-          error: (err) => {
-            this._serverErrorMessageSignal.set(err.error.error);
-          },
-        });
-      },
-      error: (err) => {
-        console.error('ImgBB upload failed', err);
-        this._serverErrorMessageSignal.set('Image upload failed');
-      },
-      complete: () => {
-        this.isLoading.set(false);
-      },
-    });
+          const userInput = {
+            title: title ?? '',
+            description: description ?? '',
+            price: price ?? 0,
+            author: this.authService.user()!._id,
+            imageUrl: imageUrl,
+            releaseDate: releaseDate ?? new Date(),
+            platforms: platforms ?? [],
+            categories: categories ?? [],
+          };
+          this.gameService.createGame(userInput).subscribe({
+            error: (err) => {
+              this._serverErrorMessageSignal.set(err.error.error);
+            },
+          });
+        },
+        error: (err) => {
+          console.error('ImgBB upload failed', err);
+          this._serverErrorMessageSignal.set('Image upload failed');
+        },
+      });
   }
   public onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

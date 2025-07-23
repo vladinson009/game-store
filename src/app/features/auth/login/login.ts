@@ -18,6 +18,8 @@ import slideAnimation from '../../../animations/slideAnimation';
 import { LoginCredentials, LoginUserForm } from '../../../models/user';
 import { AuthService } from '../../../core/services/auth.service';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,7 @@ import { FocusInput } from '../../../shared/directives/focus-input.directive';
     ReactiveFormsModule,
     RouterLink,
     FocusInput,
+    MatProgressSpinner,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -39,6 +42,7 @@ export class Login implements OnInit {
   public loginForm: FormGroup<LoginUserForm> | undefined;
   private _serverErrorMessageSignal = signal<string | null>(null);
   public serverErrorMessageSignal = this._serverErrorMessageSignal.asReadonly();
+  public isLoading = signal(false);
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -61,12 +65,16 @@ export class Login implements OnInit {
       username: username ?? '',
       password: password ?? '',
     };
-    this.authService.login(credentials).subscribe({
-      error: (err) => {
-        this.loginForm?.controls.password.reset();
-        this._serverErrorMessageSignal.set(err.error.error);
-      },
-    });
+    this.isLoading.set(true);
+    this.authService
+      .login(credentials)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        error: (err) => {
+          this.loginForm?.controls.password.reset();
+          this._serverErrorMessageSignal.set(err.error.error);
+        },
+      });
   }
   public resetInput(event: MouseEvent, inputName: keyof LoginUserForm): void {
     event.preventDefault();

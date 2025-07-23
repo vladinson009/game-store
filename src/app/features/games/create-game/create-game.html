@@ -176,7 +176,7 @@
     }
     <!-- Submit Button -->
     @if (isLoading()) {
-    <mat-spinner class="spinner-create" />
+    <mat-spinner class="spinner" />
     } @else {
 
     <button class="form-btn" matButton="filled" type="submit" [disabled]="createGameForm.invalid || isLoading()">Create

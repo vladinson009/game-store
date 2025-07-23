@@ -19,6 +19,7 @@ import { matchPasswordValidator } from '../../../shared/utils/repassValidator';
 import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class Register implements OnInit {
   public registerForm: FormGroup<RegisterUserForm> | undefined;
   private _serverErrorMessageSignal = signal<string | null>(null);
   public serverErrorMessageSignal = this._serverErrorMessageSignal.asReadonly();
+  public isLoading = signal(false);
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   private buildForm() {
@@ -77,13 +79,17 @@ export class Register implements OnInit {
       email: email ?? '',
       repass: repass ?? '',
     };
-    this.authService.register(credentials).subscribe({
-      error: (err) => {
-        this.registerForm?.controls.password.reset();
-        this.registerForm?.controls.repass.reset();
-        this._serverErrorMessageSignal.set(err.error.error);
-      },
-    });
+    this.isLoading.set(true);
+    this.authService
+      .register(credentials)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        error: (err) => {
+          this.registerForm?.controls.password.reset();
+          this.registerForm?.controls.repass.reset();
+          this._serverErrorMessageSignal.set(err.error.error);
+        },
+      });
   }
 
   public resetInput(

@@ -54,7 +54,11 @@
     <mat-error class="server-error">{{serverErrorMessageSignal()}}</mat-error>
 
     }<!-- Submit Button -->
+    @if (isLoading()) {
+    <mat-spinner class="spinner" />
+    } @else {
     <button class="form-btn" matButton="filled" type="submit" [disabled]="loginForm.invalid">Login</button>
+    }
     <!-- Submit Button -->
     <p class="form-hint">
         New customer?
