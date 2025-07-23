@@ -1,0 +1,9 @@
+<div class="search">
+
+    <form [formGroup]="searchForm!" (ngSubmit)="childEmitter()">
+        <mat-form-field class=" form-field">
+            <mat-label>Search by title</mat-label>
+            <input matInput appFocusInput formControlName="search">
+        </mat-form-field>
+    </form>
+</div>
