@@ -5,8 +5,6 @@
     [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
     [pageIndex]="pageIndex()" aria-label="Select page">
 </mat-paginator>
-<div class="page-number">
-    Page: {{ (pagination()!.page ) }} of {{ pagination()?.totalPages }}
-</div>
+
 
 }
