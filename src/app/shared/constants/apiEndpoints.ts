@@ -18,26 +18,26 @@ export const authEndpoints = {
 export const gameEndpoints = {
   getAll: baseUrl + GAMES_ROOT,
   create: baseUrl + GAMES_ROOT + '/create',
-  edit: (id: string) => baseUrl + GAMES_ROOT + `/edit${id}`,
-  delete: (id: string) => baseUrl + GAMES_ROOT + `/delete${id}`,
+  edit: (id: string) => baseUrl + GAMES_ROOT + `/edit/${id}`,
+  delete: (id: string) => baseUrl + GAMES_ROOT + `/delete/${id}`,
   getById: (id: string) => baseUrl + GAMES_ROOT + `/${id}`,
-  like: (id: string) => baseUrl + GAMES_ROOT + `/like${id}`,
-  unlike: (id: string) => baseUrl + GAMES_ROOT + `/unlike${id}`,
+  like: (id: string) => baseUrl + GAMES_ROOT + `/like/${id}`,
+  unlike: (id: string) => baseUrl + GAMES_ROOT + `/unlike/${id}`,
   uploadFileUrl: imgBBApi,
 };
 
 export const platformEndpoints = {
   getAll: baseUrl + PLATFORMS_ROOT,
   create: baseUrl + PLATFORMS_ROOT + '/create',
-  edit: (id: string) => baseUrl + PLATFORMS_ROOT + `/edit${id}`,
-  delete: (id: string) => baseUrl + PLATFORMS_ROOT + `/delete${id}`,
+  edit: (id: string) => baseUrl + PLATFORMS_ROOT + `/edit/${id}`,
+  delete: (id: string) => baseUrl + PLATFORMS_ROOT + `/delete/${id}`,
   getById: (id: string) => baseUrl + PLATFORMS_ROOT + `/${id}`,
 };
 
 export const categoryEndpoints = {
   getAll: baseUrl + CATEGORIES_ROOT,
   create: baseUrl + CATEGORIES_ROOT + '/create',
-  edit: (id: string) => baseUrl + CATEGORIES_ROOT + `/edit${id}`,
-  delete: (id: string) => baseUrl + CATEGORIES_ROOT + `/delete${id}`,
+  edit: (id: string) => baseUrl + CATEGORIES_ROOT + `/edit/${id}`,
+  delete: (id: string) => baseUrl + CATEGORIES_ROOT + `/delete/${id}`,
   getById: (id: string) => baseUrl + CATEGORIES_ROOT + `/${id}`,
 };
