@@ -9,11 +9,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
-}
-.search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
 }
 
 .cards-container {
@@ -21,4 +17,5 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  flex-grow: 1;
 }

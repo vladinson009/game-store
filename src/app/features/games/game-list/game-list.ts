@@ -1,8 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
-import { FocusInput } from '../../../shared/directives/focus-input.directive';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import slideAnimation from '../../../animations/slideAnimation';
@@ -17,25 +14,31 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Pagination } from '../../../models/pagination';
 import { PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
+import { GameSearchbar } from '../game-searchbar/game-searchbar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize, Subscription } from 'rxjs';
+import { M } from '../../../../../node_modules/@angular/material/progress-spinner.d-Lfz4Wh5x';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { QueryParams } from '../../../models/queryParams';
 
 @Component({
   selector: 'app-game-list',
   imports: [
     MatFormFieldModule,
-    MatIcon,
-    MatInput,
-    FocusInput,
     MatCardModule,
     MatButtonModule,
     Paginator,
     GameCard,
     CommonModule,
+    GameSearchbar,
+    MatProgressSpinner,
   ],
   templateUrl: './game-list.html',
   styleUrl: './game-list.css',
-  animations: [slideAnimation(1000, 'Y')],
+  animations: [slideAnimation(1000, 'X')],
 })
-export class GameList implements OnInit {
+export class GameList implements OnInit, OnDestroy {
+  private subscriptions: Subscription | undefined;
   public games = signal<GameCollectionSingleResponse[] | undefined>(undefined);
   public userId = signal<string | undefined>(undefined);
   public pagination = signal<Pagination>({
@@ -44,21 +47,15 @@ export class GameList implements OnInit {
     page: 0,
     totalPages: 0,
   });
+  public isLoading = signal<boolean>(false);
 
   constructor(
     private gameService: GameService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.loadGames();
-
-    // this.gameService.getAll().subscribe((res: GamesCollectionResponse) => {
-    //   this.games.set(res.data);
-    //   this.pagination.set(res.pagination);
-
-    // });
-  }
   public onToggleLike(game: GameCollectionSingleResponse) {
     const userId = this.userId();
     const isLiked = game.likes?.some((l) => l._id == userId);
@@ -86,11 +83,11 @@ export class GameList implements OnInit {
       });
     }
   }
-  private loadGames(): void {
-    const { page, limit } = this.pagination();
-
+  private loadGames(params: QueryParams): void {
+    this.isLoading.set(true);
     this.gameService
-      .getAll(page, limit)
+      .getAll(params)
+      .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe((res: GamesCollectionResponse) => {
         this.userId.set(this.authService.user()?._id);
         this.games.set(res.data);
@@ -98,15 +95,39 @@ export class GameList implements OnInit {
       });
   }
   public onPageChanged(event: PageEvent): void {
-    const newPagination: Pagination = {
-      total: event.length,
-      limit: event.pageSize,
-      page: event.pageIndex + 1,
-      totalPages: Math.ceil(event.length / event.pageSize),
-    };
-    console.log(newPagination);
+    const newPage = event.pageIndex + 1;
+    const newLimit = event.pageSize;
 
-    this.pagination.set(newPagination);
-    this.loadGames();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: newPage,
+        limit: newLimit,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+  private queryParamsHandler() {
+    this.subscriptions = this.route.queryParams.subscribe((params) => {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([key, value]) => value !== '')
+      );
+      this.pagination.update((prev) => ({ ...prev, ...filteredParams }));
+      this.loadGames(filteredParams);
+    });
+  }
+  onSearch(value: string) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { title: value },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  ngOnInit(): void {
+    this.queryParamsHandler();
+  }
+  ngOnDestroy(): void {
+    console.log(this.subscriptions?.unsubscribe());
   }
 }

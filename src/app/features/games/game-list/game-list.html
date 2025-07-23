@@ -1,20 +1,16 @@
 <section class="games">
-
-    <div class="search" @slideAnimation>
-        <h1 class="title">Game Catalogue</h1>
-        <mat-form-field class="form-field">
-            <mat-label>Search</mat-label>
-            <input matInput appFocusInput>
-            <button matSuffix matIconButton aria-label="Search" type="submit">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
+    <h1 class="title">Game Catalogue</h1>
+    <app-game-searchbar (criteria)="onSearch($event)" @slideAnimation />
+    <app-paginator [pagination]="pagination()" (pageChanged)="onPageChanged($event)" @slideAnimation />
     <div class="cards-container" @slideAnimation>
+        @if(isLoading()){
+        <mat-spinner class="spinner" />
+        } @else {
         @for (game of games(); track game._id ) {
         <app-game-card [game]="game" [userId]="userId()" (like)="onToggleLike(game)" />
         }
+        }
     </div>
-
-    <app-paginator [pagination]="pagination()" (pageChanged)="onPageChanged($event)" />
+    <app-paginator class="bottom-paginator" [pagination]="pagination()" (pageChanged)="onPageChanged($event)"
+        @slideAnimation />
 </section>
