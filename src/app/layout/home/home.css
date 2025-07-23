@@ -71,3 +71,6 @@
   text-shadow: 2px 2px 4px var(--bg-color);
   text-align: center;
 }
+.home-spinner {
+  margin-block: 10vh;
+}

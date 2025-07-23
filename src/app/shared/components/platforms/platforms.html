@@ -5,6 +5,10 @@
         <h2 class="platforms-title">We have games for the following platforms</h2>
     </div>
     <div class="card-wrapper">
+        @if (isLoading()) {
+        <mat-spinner class="spinner" />
+        } @else {
+
         @for (pr of platforms(); track pr._id) {
         <mat-card @fadeLeftAnimation class="card jump-on-hover" appearance="filled">
             <mat-card-header>
@@ -14,6 +18,7 @@
                 <mat-card-title>{{pr.name}}</mat-card-title>
             </mat-card-content>
         </mat-card>} @empty{}
+        }
 
     </div>
 </section>

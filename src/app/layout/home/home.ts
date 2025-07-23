@@ -13,10 +13,8 @@ import { RouterLink } from '@angular/router';
 import { Platforms } from '../../shared/components/platforms/platforms';
 import { GameCollectionSingleResponse } from '../../models/game';
 import { GameService } from '../../core/services/game.service';
-import {
-  MatProgressSpinner,
-  MatProgressSpinnerModule,
-} from '@angular/material/progress-spinner';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize, pipe } from 'rxjs';
 export interface HomeType {
   name: string;
   message: string;
@@ -30,8 +28,8 @@ export interface HomeType {
     CommonModule,
     RouterLink,
     Platforms,
-    MatProgressSpinnerModule,
-    // MatProgressSpinner,
+
+    MatProgressSpinner,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -43,9 +41,11 @@ export class Home implements OnInit {
 
   constructor(private gameService: GameService) {}
   ngOnInit() {
-    this.gameService.getRecent().subscribe((res) => {
-      this.testimonial.set(res.data);
-      this.isLoading.set(false);
-    });
+    this.gameService
+      .getRecent()
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((res) => {
+        this.testimonial.set(res.data);
+      });
   }
 }
