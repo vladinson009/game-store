@@ -13,4 +13,3 @@ import { CopyrightDirective } from '../../shared/directives/copyright.directive'
 export class Footer {
   totalGames = input<number | null>(null);
 }
-//TODO Dynamic Games in our store
