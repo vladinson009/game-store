@@ -20,6 +20,7 @@ import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
 import { finalize } from 'rxjs';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ import { finalize } from 'rxjs';
     ReactiveFormsModule,
     RouterLink,
     FocusInput,
+    MatProgressSpinner,
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
