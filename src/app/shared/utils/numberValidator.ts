@@ -5,7 +5,7 @@ export function numberValidator(
 ): ValidationErrors | null {
   const value = control.value;
 
-  //   if (value === null || value === undefined || value === '') return null;
-
-  return isNaN(Number(value)) ? { notANumber: true } : null;
+  if (!Number(value)) {
+    return { notANumber: true };
+  } else return null;
 }
