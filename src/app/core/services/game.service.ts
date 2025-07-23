@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -9,6 +9,7 @@ import {
 import { Observable, tap } from 'rxjs';
 import { gameEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
+import { QueryParams } from '../../models/queryParams';
 
 @Injectable({
   providedIn: 'root',
@@ -33,14 +34,17 @@ export class GameService {
         })
       );
   }
-  public getAll(
-    page: number,
-    limit: number
-  ): Observable<GamesCollectionResponse> {
-    const queryString = `?page=${page}&limit=${limit}`;
-    return this.http.get<GamesCollectionResponse>(
-      gameEndpoints.getAll + queryString
-    );
+  public getAll(params: QueryParams): Observable<GamesCollectionResponse> {
+    // const queryString = `?page=${page}&limit=${limit}`;
+    let httpParams = new HttpParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        httpParams = httpParams.set(key, value);
+      }
+    });
+    return this.http.get<GamesCollectionResponse>(gameEndpoints.getAll, {
+      params: httpParams,
+    });
   }
   public getRecent(): Observable<GamesCollectionResponse> {
     return this.http.get<GamesCollectionResponse>(
