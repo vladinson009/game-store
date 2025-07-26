@@ -1,22 +1,23 @@
-@if (game()) {
+@let game = gameSignal();
+@if (game) {
 <mat-card class="card" appearance="raised">
     <mat-card-content class="img-container">
-        <img mat-card-lg-image [src]="game()?.imageUrl" [alt]="game()?.title">
+        <img mat-card-lg-image [src]="game.imageUrl" [alt]="game.title">
     </mat-card-content>
     <mat-card-header>
         <mat-card-title-group class="card-title">
-            <mat-card-title>{{game()?.title}}</mat-card-title>
-            @if (game()?.platforms) {
+            <mat-card-title>{{game.title}}</mat-card-title>
+            @if (game.platforms) {
             <mat-card-subtitle class="subtitle">
-                {{ game()?.platforms! | platforms}}
+                {{ game.platforms | join_array}}
             </mat-card-subtitle>
             }
         </mat-card-title-group>
     </mat-card-header>
     <span class="spacer"></span>
     <p class="likes">
-        @if (game()?.likes?.length !== undefined && game()!.likes!.length > 0) {
-        <span class="likes-count">{{game()?.likes?.length}}</span> likes
+        @if (game.likes?.length !== undefined && game.likes!.length > 0) {
+        <span class="likes-count">{{game.likes?.length}}</span> likes
         } @else {
         No likes yet
         }
@@ -32,11 +33,7 @@
             {{isLiked() ? 'Unlike' : 'Like'}}
         </button>
         }
-
-        <!-- <button matButton="tonal"><mat-icon>thumb_up_off_alt</mat-icon>Like</button> -->
-
-
-        <a routerLink="details/{{game()?._id}}" matButton="elevated">Details<mat-icon>info</mat-icon></a>
+        <a routerLink="details/{{game._id}}" matButton="tonal" class="details-btn">Details<mat-icon>info</mat-icon></a>
     </mat-card-actions>
 </mat-card>
 }

@@ -7,10 +7,10 @@
   flex-basis: 250px;
   box-shadow: 1px;
   box-shadow: 0 4px 5px 5px rgb(0, 0, 0, 0.3);
+  background-color: var(--alternate-color);
 }
 .card-title {
   margin-bottom: 0.5rem;
-  /* background-color: red; */
 }
 .btn-actions {
   display: flex;
@@ -20,12 +20,10 @@
   border-radius: 50%;
 }
 .subtitle {
-  color: silver;
+  color: red;
 }
 .unlike {
   background: orange;
-}
-.likes {
 }
 .likes-count {
   background-color: orange;
