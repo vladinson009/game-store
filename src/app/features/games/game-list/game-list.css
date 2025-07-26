@@ -1,8 +1,3 @@
-.title {
-  color: orange;
-  text-shadow: 2px 2px 4px var(--bg-color);
-}
-
 .games {
   display: flex;
   flex-direction: column;

@@ -7,7 +7,7 @@
         <mat-spinner class="spinner" />
         } @else {
         @for (game of games(); track game._id ) {
-        <app-game-card [game]="game" [userId]="userId()" (like)="onToggleLike(game)" />
+        <app-game-card [gameSignal]="game" [userId]="userId()" (like)="onToggleLike(game)" />
         }
         }
     </div>

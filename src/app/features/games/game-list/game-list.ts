@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
 import { GameSearchbar } from '../game-searchbar/game-searchbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, Subscription } from 'rxjs';
-import { M } from '../../../../../node_modules/@angular/material/progress-spinner.d-Lfz4Wh5x';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { QueryParams } from '../../../models/queryParams';
 
@@ -73,7 +72,10 @@ export class GameList implements OnInit, OnDestroy {
       this.gameService.addLike(game._id).subscribe(() => {
         const currentUser = this.authService.user();
         if (currentUser) {
-          game.likes = [...(game.likes ?? []), { _id: currentUser._id }];
+          game.likes = [
+            ...(game.likes ?? []),
+            { _id: currentUser._id, username: currentUser.username },
+          ];
           this.games.update((games) =>
             games?.map((g) =>
               g._id === game._id ? { ...g, likes: game.likes } : g
@@ -128,6 +130,6 @@ export class GameList implements OnInit, OnDestroy {
     this.queryParamsHandler();
   }
   ngOnDestroy(): void {
-    console.log(this.subscriptions?.unsubscribe());
+    this.subscriptions?.unsubscribe();
   }
 }
