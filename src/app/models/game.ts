@@ -44,14 +44,14 @@ export interface GameCollectionSingleResponse {
   price: number;
   releaseDate: Date;
   imageUrl: string;
-  categories?: Categories[];
+  categories?: CategoriesFromGame[];
   platforms?: PlatformsFromGame[];
   author: Author;
   createdAt: Date;
   updatedAt: Date;
-  likes?: { _id: string }[];
+  likes?: { _id: string; username: string }[];
 }
-interface Categories {
+export interface CategoriesFromGame {
   _id: string;
   name: string;
   description: string;
