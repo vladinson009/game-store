@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  GameCollectionSingleResponse,
   GameFormat,
   GameFormatResponse,
   GamesCollectionResponse,
@@ -33,6 +34,11 @@ export class GameService {
           this.router.navigate(['/games']);
         })
       );
+  }
+  public getById(gameId: string): Observable<GameCollectionSingleResponse> {
+    return this.http.get<GameCollectionSingleResponse>(
+      gameEndpoints.getById(gameId)
+    );
   }
   public getAll(params: QueryParams): Observable<GamesCollectionResponse> {
     // const queryString = `?page=${page}&limit=${limit}`;
