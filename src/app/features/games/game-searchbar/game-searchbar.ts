@@ -1,28 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import {
-  MatFormField,
-  MatInput,
-  MatLabel,
-  MatSuffix,
-} from '@angular/material/input';
+import { Component, OnInit, output } from '@angular/core';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
-import { MatIconButton } from '@angular/material/button';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-game-searchbar',
-  imports: [
-    MatFormField,
-    MatIcon,
-    MatLabel,
-    MatInput,
-    FocusInput,
-    MatSuffix,
-    MatIconButton,
-    ReactiveFormsModule,
-  ],
+  imports: [MatFormField, MatLabel, MatInput, FocusInput, ReactiveFormsModule],
   templateUrl: './game-searchbar.html',
   styleUrl: './game-searchbar.css',
 })
