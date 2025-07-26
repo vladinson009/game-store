@@ -1,0 +1,73 @@
+@let game = gameSignal();
+@if(game){
+
+<mat-card class="detailed-card" appearance="outlined" @slideAnimation>
+    <mat-card-header class="header">
+        <mat-card-title>
+            <h2 class="title">
+                {{game.title}}
+            </h2>
+        </mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content class="content">
+        <div class="left">
+
+            <div class="img-container">
+                <img class="img" mat-card-image [src]="game.imageUrl" alt="Photo of a Shiba Inu">
+            </div>
+        </div>
+        <div class="info">
+            <mat-card-title>{{game.description}}</mat-card-title>
+            <div class="game-info">
+                <mat-card-subtitle>
+                    <p>Categories: <span>{{game.categories | join_array}}</span> </p>
+                    <p>Platforms: <span>{{game.platforms | join_array}}</span> </p>
+                    <!-- <p>Author: <span>{{game.author.username}}</span></p> -->
+                </mat-card-subtitle>
+            </div>
+
+            <span class="spacer"></span>
+
+            <section class="additional-info">
+                <div class="additional-left">
+                    <mat-card-subtitle>
+                        <p>Price: <span>{{game.price | currency: 'USD':'symbol':'1.0-0' }}</span> </p>
+                        <p>Release Date: <span>{{game.releaseDate | date}}</span> </p>
+                        <p>Likes: <span>{{game.likes?.length}}</span> </p>
+                    </mat-card-subtitle>
+                </div>
+
+                <div class="additional-right">
+                    <mat-card-subtitle>
+                        <p>Author: <span>{{game.author.username}}</span> </p>
+                        <p>In store from: <span>{{game.createdAt | date}}</span> </p>
+                        @if (game.createdAt !== game.updatedAt) {
+                        <p>Updated <span>{{game.updatedAt | formatData}} ago</span> </p>
+                        }
+                    </mat-card-subtitle>
+                </div>
+            </section>
+            @if (isLogged) {
+
+            <mat-card-actions class="actions">
+                <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
+                    <mat-icon>
+                        {{isLiked() ? 'thumb_down_off_alt' : 'thumb_up_off_alt'}}
+                    </mat-icon>
+                    {{isLiked() ? 'Unlike' : 'Like'}}
+                </button>
+                <!-- <button matButton="elevated">Share<mat-icon>share</mat-icon></button> -->
+                @if(isOwner){
+                <button matButton="elevated">Edit<mat-icon>edit</mat-icon></button>
+                <button matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
+                }
+            </mat-card-actions>
+            }
+        </div>
+    </mat-card-content>
+</mat-card>
+} @else {
+<mat-spinner class="spinner details-spinner" />
+
+}
