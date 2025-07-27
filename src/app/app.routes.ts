@@ -1,18 +1,26 @@
 import { Routes } from '@angular/router';
-import { GameList } from './features/games/game-list/game-list';
+
 import { Home } from './layout/home/home';
-import { Login } from './features/auth/login/login';
-import { Register } from './features/auth/register/register';
-import { CreateGame } from './features/games/create-game/create-game';
-import { GameDetails } from './features/games/game-details/game-details';
-import { GameEdit } from './features/games/game-edit/game-edit';
+import { AboutUs } from './shared/components/about-us/about-us';
+import { NotFound } from './shared/components/not-found/not-found';
 
 export const routes: Routes = [
-  { path: '', component: Home, pathMatch: 'full' },
-  { path: 'games', component: GameList, pathMatch: 'full' },
-  { path: 'games/create', component: CreateGame },
-  { path: 'games/details/:gameId', component: GameDetails },
-  { path: 'games/edit/:gameId', component: GameEdit },
-  { path: 'users/login', component: Login },
-  { path: 'users/register', component: Register },
+  {
+    path: '',
+    component: Home,
+    pathMatch: 'full',
+  },
+  {
+    path: 'games',
+    loadChildren: () =>
+      import('./routes/games.routes').then((m) => m.gamesRoutes),
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./routes/users.routes').then((m) => m.usersRoutes),
+  },
+  { path: 'about-us', component: AboutUs },
+  { path: 'not-found', component: NotFound },
+  { path: '**', redirectTo: '/not-found' },
 ];
