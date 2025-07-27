@@ -16,6 +16,7 @@
             <div class="img-container">
                 <img class="img" mat-card-image [src]="game.imageUrl" alt="Photo of a Shiba Inu">
             </div>
+            <button (click)="onBack()" class="back" matButton="filled">Back<mat-icon>arrow_back</mat-icon></button>
         </div>
         <div class="info">
             <mat-card-title>{{game.description}}</mat-card-title>
@@ -59,8 +60,8 @@
                 </button>
                 <!-- <button matButton="elevated">Share<mat-icon>share</mat-icon></button> -->
                 @if(isOwner){
-                <button matButton="elevated">Edit<mat-icon>edit</mat-icon></button>
-                <button matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
+                <a routerLink="/games/edit/{{game._id}}" matButton="elevated">Edit<mat-icon>edit</mat-icon></a>
+                <button (click)="openDialog()" matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
                 }
             </mat-card-actions>
             }

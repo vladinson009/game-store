@@ -54,7 +54,7 @@
 }
 .additional-info {
   display: flex;
-  justify-content: space-between;
+  gap: 1.5rem;
   align-items: center;
   background-color: orange;
   box-shadow: 5px 5px 10px 4px rgb(0, 0, 0, 0.5);
@@ -71,4 +71,8 @@
 }
 .unlike {
   background-color: orange;
+}
+.back {
+  width: fit-content;
+  align-self: center;
 }

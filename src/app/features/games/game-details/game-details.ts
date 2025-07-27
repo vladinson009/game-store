@@ -4,7 +4,6 @@ import {
   OnChanges,
   OnInit,
   output,
-  Signal,
   signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,11 +13,13 @@ import { GameCollectionSingleResponse } from '../../../models/game';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { JoinArrayPipe } from '../../../shared/pipes/join-array';
 import slideAnimation from '../../../animations/slideAnimation';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, Location } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
-import { AuthUserResponse } from '../../../models/user';
 import { FormatDataPipe } from '../../../shared/pipes/format-data-pipe';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogModal } from '../../../shared/components/dialog-modal/dialog-modal';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-game-details',
@@ -31,6 +32,7 @@ import { MatIcon } from '@angular/material/icon';
     CurrencyPipe,
     FormatDataPipe,
     MatIcon,
+    RouterLink,
   ],
   templateUrl: './game-details.html',
   styleUrl: './game-details.css',
@@ -46,7 +48,10 @@ export class GameDetails implements OnInit, OnChanges {
 
   constructor(
     private gameService: GameService,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location,
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   toggleLike() {
@@ -71,6 +76,23 @@ export class GameDetails implements OnInit, OnChanges {
         this.isLiked.set(true);
       });
     }
+  }
+  onBack() {
+    this.location.back();
+  }
+  openDialog() {
+    this.dialog.open(DialogModal, {
+      data: {
+        message: this.gameSignal()?.title,
+        onAction: () => this.onDeleteGame(),
+        onClose: () => console.log('Closed'),
+      },
+    });
+  }
+  public onDeleteGame() {
+    this.gameService.deleteById(this.gameId()).subscribe((res) => {
+      this.router.navigate(['/games']);
+    });
   }
   ngOnInit() {
     this.gameService.getById(this.gameId()).subscribe((response) => {
