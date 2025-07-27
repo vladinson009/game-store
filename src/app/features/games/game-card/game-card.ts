@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { GameCollectionSingleResponse } from '../../../models/game';
 import { RouterLink } from '@angular/router';
@@ -16,7 +16,7 @@ export class GameCard {
   public gameSignal = input<GameCollectionSingleResponse>();
   public userId = input<string | undefined>(undefined);
   public like = output();
-
+  public isLoading = input<boolean>();
   public isLiked = computed(
     () =>
       this.gameSignal()?.likes?.some((like) => like._id === this.userId()) ??
