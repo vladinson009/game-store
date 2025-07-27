@@ -65,6 +65,7 @@
   border-radius: 3rem;
   color: white;
   text-align: center;
+  box-shadow: 2px 5px 14px 5px rgb(0, 0, 0, 0.5);
 }
 
 .home-spinner {
