@@ -28,7 +28,7 @@ export interface HomeType {
     CommonModule,
     RouterLink,
     Platforms,
-
+    RouterLink,
     MatProgressSpinner,
   ],
   templateUrl: './home.html',
