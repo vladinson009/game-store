@@ -1,5 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   CategoriesFromGame,
   EditGameFormat,
@@ -22,6 +27,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import slideAnimation from '../../../animations/slideAnimation';
 import { finalize } from 'rxjs';
 import { ImgBBUploadResponse } from '../../../models/imageUpload';
+import { numberValidator } from '../../../shared/utils/numberValidator';
+import { dateValidator } from '../../../shared/utils/dateFormValidator';
 
 @Component({
   selector: 'app-game-edit',
@@ -58,21 +65,22 @@ export class GameEdit implements OnInit {
     private route: ActivatedRoute
   ) {
     this.editGameForm = this.fb.nonNullable.group({
-      title: this.fb.nonNullable.control(''),
-      description: this.fb.nonNullable.control(''),
-      price: this.fb.nonNullable.control<number | undefined>(undefined),
+      title: this.fb.nonNullable.control('', {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      description: this.fb.nonNullable.control('', {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      price: this.fb.nonNullable.control<number | undefined>(undefined, {
+        validators: [numberValidator, Validators.required, Validators.min(1)],
+      }),
       releaseDate: this.fb.nonNullable.control<Date | undefined | string>(
-        undefined
+        undefined,
+        { validators: [dateValidator, Validators.required] }
       ),
-      platforms: this.fb.nonNullable.control<string[]>([], {
-        validators: [],
-      }),
-      categories: this.fb.nonNullable.control<string[]>([], {
-        validators: [],
-      }),
-      image: this.fb.nonNullable.control<File | null>(null, {
-        validators: [],
-      }),
+      image: this.fb.nonNullable.control<File | null>(null, {}),
+      categories: this.fb.nonNullable.control<string[]>([], {}),
+      platforms: this.fb.nonNullable.control<string[]>([], {}),
     });
   }
   public editGameHandler() {
