@@ -82,8 +82,8 @@ export class CreateGame implements OnInit {
       image: this.fb.nonNullable.control<File | null>(null, {
         validators: [Validators.required],
       }),
-      categories: this.fb.nonNullable.control<string[]>([], {}),
-      platforms: this.fb.nonNullable.control<string[]>([], {}),
+      categories: this.fb.nonNullable.control<string[]>([]),
+      platforms: this.fb.nonNullable.control<string[]>([]),
     });
   }
 

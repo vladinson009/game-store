@@ -78,9 +78,9 @@ export class GameEdit implements OnInit {
         undefined,
         { validators: [dateValidator, Validators.required] }
       ),
-      image: this.fb.nonNullable.control<File | null>(null, {}),
-      categories: this.fb.nonNullable.control<string[]>([], {}),
-      platforms: this.fb.nonNullable.control<string[]>([], {}),
+      image: this.fb.nonNullable.control<File | null>(null),
+      categories: this.fb.nonNullable.control<string[]>([]),
+      platforms: this.fb.nonNullable.control<string[]>([]),
     });
   }
   public editGameHandler() {
