@@ -154,8 +154,8 @@
             @if (form.image.value) {
             <p class="file-name">{{ form.image.value.name }}</p>
             }
-
             <!--?Clear input button  -->
+
             <!--!Error messages  -->
             @if(form.image.hasError('required') && form.image.touched){
             <mat-error>Image is required!</mat-error>

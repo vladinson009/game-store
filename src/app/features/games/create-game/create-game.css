@@ -16,11 +16,16 @@
 }
 .file-name {
   color: orange;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  max-width: 100%;
+  display: block;
 }
 .custom-file-upload {
   display: flex;
   gap: 1rem;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   flex-shrink: 1;
   flex-grow: 1;
   justify-content: space-between;

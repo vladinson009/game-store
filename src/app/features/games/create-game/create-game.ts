@@ -31,6 +31,7 @@ import { CategoriesData } from '../../../models/categories';
 import { CategoryService } from '../../../core/services/category.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { ImgBBUploadResponse } from '../../../models/imageUpload';
 
 @Component({
   selector: 'app-create-game',
@@ -120,7 +121,7 @@ export class CreateGame implements OnInit {
       .uploadImage(formData)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
-        next: (res: any) => {
+        next: (res: ImgBBUploadResponse) => {
           const imageUrl = res.data.url;
 
           const userInput = {
