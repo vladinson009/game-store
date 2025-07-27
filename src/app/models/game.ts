@@ -13,17 +13,17 @@ export interface EditGameFormat {
   title: FormControl<string>;
   description: FormControl<string>;
   price: FormControl<number | undefined>;
-  releaseDate: FormControl<Date | undefined>;
+  releaseDate: FormControl<Date | undefined | string>;
   image: FormControl<File | null>;
-  categories: FormControl<CategoriesFromGame[]>;
-  platforms: FormControl<PlatformsFromGame[]>;
+  categories: FormControl<string[]>;
+  platforms: FormControl<string[]>;
 }
 
 export interface GameFormat {
   title: string;
   description: string;
   price: number;
-  releaseDate: Date;
+  releaseDate: Date | string;
   imageUrl: string;
   author: string;
   categories?: string[];
