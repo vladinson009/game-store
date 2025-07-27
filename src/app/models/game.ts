@@ -9,6 +9,15 @@ export interface CreateGameFormat {
   categories: FormControl<string[]>;
   platforms: FormControl<string[]>;
 }
+export interface EditGameFormat {
+  title: FormControl<string>;
+  description: FormControl<string>;
+  price: FormControl<number | undefined>;
+  releaseDate: FormControl<Date | undefined>;
+  image: FormControl<File | null>;
+  categories: FormControl<CategoriesFromGame[]>;
+  platforms: FormControl<PlatformsFromGame[]>;
+}
 
 export interface GameFormat {
   title: string;
@@ -19,7 +28,7 @@ export interface GameFormat {
   author: string;
   categories?: string[];
   platforms?: string[];
-  likes?: { _id: string }[];
+  likes?: { _id: string; username: string }[];
 }
 export interface GameFormatResponse extends GameFormat {
   _id: string;
