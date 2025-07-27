@@ -26,7 +26,7 @@
 
         @if(userId()){
 
-        <button [disabled]="isLoading()" matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
+        <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
             <mat-icon>
                 {{isLiked() ? 'thumb_down_off_alt' : 'thumb_up_off_alt'}}
             </mat-icon>
