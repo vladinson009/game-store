@@ -5,12 +5,14 @@ import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { CreateGame } from './features/games/create-game/create-game';
 import { GameDetails } from './features/games/game-details/game-details';
+import { GameEdit } from './features/games/game-edit/game-edit';
 
 export const routes: Routes = [
   { path: '', component: Home, pathMatch: 'full' },
   { path: 'games', component: GameList, pathMatch: 'full' },
   { path: 'games/create', component: CreateGame },
   { path: 'games/details/:gameId', component: GameDetails },
+  { path: 'games/edit/:gameId', component: GameEdit },
   { path: 'users/login', component: Login },
   { path: 'users/register', component: Register },
 ];
