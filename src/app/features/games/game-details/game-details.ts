@@ -20,6 +20,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModal } from '../../../shared/components/dialog-modal/dialog-modal';
 import { Router, RouterLink } from '@angular/router';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-game-details',
@@ -27,12 +28,12 @@ import { Router, RouterLink } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     MatProgressSpinner,
-    JoinArrayPipe,
     DatePipe,
     CurrencyPipe,
     FormatDataPipe,
     MatIcon,
     RouterLink,
+    MatChipsModule,
   ],
   templateUrl: './game-details.html',
   styleUrl: './game-details.css',

@@ -22,9 +22,21 @@
             <mat-card-title>{{game.description}}</mat-card-title>
             <div class="game-info">
                 <mat-card-subtitle>
-                    <p>Categories: <span>{{game.categories | join_array}}</span> </p>
-                    <p>Platforms: <span>{{game.platforms | join_array}}</span> </p>
-                    <!-- <p>Author: <span>{{game.author.username}}</span></p> -->
+                    <p>Categories:
+                        <mat-chip-set>
+                            @for(c of game.categories; track c._id){
+                            <mat-chip>{{c.name}}</mat-chip>
+                            } @empty {}
+                        </mat-chip-set>
+                    </p>
+                    <p>Platforms:
+                        <mat-chip-set>
+                            @for(c of game.platforms; track c._id){
+                            <mat-chip>{{c.name}}</mat-chip>
+                            } @empty {}
+                        </mat-chip-set>
+                        <!-- <span>{{game.platforms | join_array}}</span> </p> -->
+                        <!-- <p>Author: <span>{{game.author.username}}</span></p> -->
                 </mat-card-subtitle>
             </div>
 
