@@ -13,6 +13,18 @@
             <span class="spacer"></span>
             }
             <div class="btn-container">
+                <!-- Admin Menu  -->
+                @if (isUser() && user()?.role === 'admin') {
+                <button class="btn" matButton="outlined" [matMenuTriggerFor]="adminMenu">
+                    Admin Panel<mat-icon>admin_panel_settings</mat-icon>
+                </button>
+                <mat-menu #adminMenu="matMenu">
+                    <a mat-menu-item routerLink="/admin/change-roles" routerLinkActive="active">Manage roles</a>
+                    <a mat-menu-item href="/admin/categories" routerLinkActive="active">Manage Category</a>
+                    <a mat-menu-item href="/admin/platforms" routerLinkActive="active">Manage Platform</a>
+                </mat-menu>
+                <!-- Admin Menu  -->
+                }
                 <!-- Mat Menu Definition -->
                 <button class="btn" matButton="outlined" [matMenuTriggerFor]="mainMenu">
                     Menu <mat-icon>apps</mat-icon>
@@ -24,7 +36,6 @@
                         [routerLinkActiveOptions]="{ exact: true }">Games</a>
                     @if (isUser()) {
                     <a mat-menu-item routerLink="/games/create" routerLinkActive="active">Create Game</a>
-                    <!-- TODO: Routes for logged in users only -->
                     }
                     <a mat-menu-item routerLink="/about-us" routerLinkActive="active">About Us</a>
                     <a mat-menu-item routerLink="/learn-more" routerLinkActive="active">Learn More</a>
