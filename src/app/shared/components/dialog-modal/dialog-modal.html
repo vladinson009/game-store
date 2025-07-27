@@ -1,0 +1,12 @@
+<section class="container">
+    <h2 mat-dialog-title>Delete confirmation</h2>
+    <mat-dialog-content>
+        <p>Are you sure you want to delete <span class="game-title">{{ message}}</span> ?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions class="actions">
+        <button matButton="filled" (click)="onDelete()">
+            Delete<mat-icon>delete</mat-icon>
+        </button>
+        <button matButton="tonal" (click)="onCancel()">Close<mat-icon>close</mat-icon></button>
+    </mat-dialog-actions>
+</section>
