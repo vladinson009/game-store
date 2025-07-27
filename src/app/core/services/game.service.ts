@@ -44,7 +44,7 @@ export class GameService {
       .pipe(
         tap((res) => {
           this.uiService.openSnackBar(`Game ${res.title} updated`);
-          this.router.navigate(['/games']);
+          this.router.navigate(['/games', 'details', gameId]);
         })
       );
   }
