@@ -35,6 +35,19 @@ export class GameService {
         })
       );
   }
+  public editGame(
+    gameId: string,
+    userInput: GameFormat
+  ): Observable<GameFormatResponse> {
+    return this.http
+      .put<GameFormatResponse>(gameEndpoints.edit(gameId), userInput)
+      .pipe(
+        tap((res) => {
+          this.uiService.openSnackBar(`Game ${res.title} updated`);
+          this.router.navigate(['/games']);
+        })
+      );
+  }
   public getById(gameId: string): Observable<GameCollectionSingleResponse> {
     return this.http.get<GameCollectionSingleResponse>(
       gameEndpoints.getById(gameId)
@@ -51,6 +64,11 @@ export class GameService {
     return this.http.get<GamesCollectionResponse>(gameEndpoints.getAll, {
       params: httpParams,
     });
+  }
+  public deleteById(gameId: string): Observable<GameCollectionSingleResponse> {
+    return this.http.delete<GameCollectionSingleResponse>(
+      gameEndpoints.delete(gameId)
+    );
   }
   public getRecent(): Observable<GamesCollectionResponse> {
     return this.http.get<GamesCollectionResponse>(
