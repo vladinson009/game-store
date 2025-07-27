@@ -1,0 +1,70 @@
+<section class="section" @slideAnimation>
+    <div class="vertical">
+        <div class="left">
+            <div class="userdata-container">
+                <p>Username:</p>
+                <h3>{{this.user()?.username}}</h3>
+            </div>
+            <div class="userdata-container">
+                <p>Email:</p>
+                <h3>{{this.user()?.email}}</h3>
+            </div>
+            <div class="userdata-container">
+                <p>Role:</p>
+                <h3>{{this.user()?.role | titlecase}}</h3>
+            </div>
+
+        </div>
+        <div>
+            <h1>Created Games</h1>
+        </div>
+        <div class="right">
+            <table mat-table [dataSource]="myGames()" multiTemplateDataRows class="mat-elevation-z8">
+                @for (column of columnsToDisplay; track column) {
+                <ng-container matColumnDef="{{column}}">
+                    <th mat-header-cell *matHeaderCellDef>{{column |titlecase}}</th>
+                    <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+                </ng-container>
+                }
+                <ng-container matColumnDef="expand">
+                    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button matIconButton aria-label="expand row"
+                            (click)="toggle(element); $event.stopPropagation()" class="example-toggle-button"
+                            [class.example-toggle-button-expanded]="isExpanded(element)">
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                        <div class="example-element-detail-wrapper"
+                            [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
+                            <div class="example-element-detail">
+                                <div class="img-container">
+                                    <img class="img" src="{{element.imageUrl}}" alt="">
+
+                                </div>
+                                <div class="element-description">
+                                    {{element.description}}
+                                    <a matButton="elevated" routerLink="/games/details/{{element._id}}">More details</a>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+                <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                    [class.example-expanded-row]="isExpanded(element)" (click)="toggle(element)">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+            </table>
+
+        </div>
+    </div>
+</section>
