@@ -1,3 +1,4 @@
+@let role = user()?.role;
 <header>
     <mat-toolbar>
         <mat-toolbar-row>
@@ -14,12 +15,14 @@
             }
             <div class="btn-container">
                 <!-- Admin Menu  -->
-                @if (isUser() && user()?.role === 'admin') {
+                @if (isUser() && role !== undefined && role !== 'user') {
                 <button class="btn" matButton="outlined" [matMenuTriggerFor]="adminMenu">
-                    Admin Panel<mat-icon>admin_panel_settings</mat-icon>
+                    {{role === 'admin'? 'Admin' : 'Moderator'}} Panel<mat-icon>admin_panel_settings</mat-icon>
                 </button>
                 <mat-menu #adminMenu="matMenu">
+                    @if(role === 'admin'){
                     <a mat-menu-item routerLink="/admin/change-roles" routerLinkActive="active">Manage roles</a>
+                    }
                     <a mat-menu-item href="/admin/categories" routerLinkActive="active">Manage Category</a>
                     <a mat-menu-item href="/admin/platforms" routerLinkActive="active">Manage Platform</a>
                 </mat-menu>
