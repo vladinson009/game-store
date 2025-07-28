@@ -21,10 +21,12 @@
                 </button>
                 <mat-menu #adminMenu="matMenu">
                     @if(role === 'admin'){
-                    <a mat-menu-item routerLink="/admin/change-roles" routerLinkActive="active">Manage roles</a>
+                    <a mat-menu-item routerLink="/moderate/change-roles" routerLinkActive="active">Manage roles</a>
                     }
-                    <a mat-menu-item href="/admin/categories" routerLinkActive="active">Manage Category</a>
-                    <a mat-menu-item href="/admin/platforms" routerLinkActive="active">Manage Platform</a>
+                    <a mat-menu-item routerLink="/moderate/change-categories" routerLinkActive="active">Manage
+                        Category</a>
+                    <a mat-menu-item routerLink="/moderate/change-platforms" routerLinkActive="active">Manage
+                        Platform</a>
                 </mat-menu>
                 <!-- Admin Menu  -->
                 }
