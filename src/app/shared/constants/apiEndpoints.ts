@@ -13,6 +13,9 @@ export const authEndpoints = {
   register: baseUrl + USERS_ROOT + '/register',
   logout: baseUrl + USERS_ROOT + '/logout',
   me: baseUrl + USERS_ROOT + '/me',
+  getAll: baseUrl + USERS_ROOT,
+  editRole: (id: string) => baseUrl + USERS_ROOT + `/role/${id}`,
+  deleteUser: (id: string) => baseUrl + USERS_ROOT + `/delete/${id}`,
 };
 
 export const gameEndpoints = {
