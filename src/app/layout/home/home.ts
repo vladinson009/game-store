@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import carouselAnimation from '../../animations/carouselAnimation';
 import slideAnimation from '../../animations/slideAnimation';
@@ -14,7 +8,7 @@ import { Platforms } from '../../shared/components/platforms/platforms';
 import { GameCollectionSingleResponse } from '../../models/game';
 import { GameService } from '../../core/services/game.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { finalize, pipe } from 'rxjs';
+import { finalize } from 'rxjs';
 export interface HomeType {
   name: string;
   message: string;
