@@ -1,0 +1,56 @@
+<section class="section">
+    <div class="top">
+        <div class="left">
+            <h1>Manage roles</h1>
+        </div>
+        <!-- <div class="right">
+            <h1>Roles 2</h1>
+        </div> -->
+    </div>
+    <div class="bottom">
+        <table class="table" mat-table [dataSource]="users()!" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="_id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td class="id-class" mat-cell *matCellDef="let element"> {{element._id}}
+                    <button class="update-btn" matButton="elevated" (click)="deleteUser(element._id)">Delete
+                        User</button>
+
+                </td>
+            </ng-container>
+
+            <!-- Role Column -->
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef> Role </th>
+                <td class="role-class" mat-cell *matCellDef="let element">
+                    <mat-select [(ngModel)]="element.role">
+                        <mat-option value="admin">Admin</mat-option>
+                        <mat-option value="user">User</mat-option>
+                        <mat-option value="moderator">Moderator</mat-option>
+                    </mat-select>
+                    <button class="update-btn" matButton="elevated" (click)="updateRole(element)">Update</button>
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+</section>
