@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 
 import type {
   AuthUserResponse,
@@ -12,7 +12,6 @@ import type {
 
 import { authEndpoints } from '../../shared/constants/apiEndpoints';
 import { tokenStorage } from '../../shared/constants/constants';
-import { UiService } from './ui.service';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +60,7 @@ export class AuthService {
     return this.http
       .get<Observable<AuthUserResponse>>(authEndpoints.logout)
       .pipe(
-        tap(() => {
+        finalize(() => {
           this._userData.set(null);
           this.clearLocalStorage();
           this.router.navigate(['/']);
