@@ -27,5 +27,7 @@ export interface AuthUserResponse {
   _id: string;
   username: string;
   email: string;
-  role: string;
+  role: UserRole;
 }
+
+export type UserRole = 'admin' | 'moderator' | 'user';
