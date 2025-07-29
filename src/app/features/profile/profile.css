@@ -7,17 +7,12 @@
   margin-block: 2rem;
 }
 .left {
-  /* flex-grow: 1; */
   display: flex;
   gap: 3rem;
   justify-content: center;
-
-  /* background-color: blue; */
 }
 .right {
   flex-grow: 1;
-
-  /* background-color: green; */
 }
 table {
   width: 100%;

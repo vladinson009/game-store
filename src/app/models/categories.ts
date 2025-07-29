@@ -1,5 +1,5 @@
 export interface CategoriesData {
-  likes: string[];
+  likes?: string[];
   _id: string;
   name: string;
   createdAt: Date;

@@ -1,5 +1,6 @@
+import type { CategoriesFromGame, PlatformsFromGame } from '../../models/game';
+
 import { Pipe, PipeTransform } from '@angular/core';
-import { CategoriesFromGame, PlatformsFromGame } from '../../models/game';
 
 @Pipe({
   name: 'join_array',

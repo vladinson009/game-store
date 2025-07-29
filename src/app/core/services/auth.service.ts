@@ -1,14 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { computed, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { finalize, Observable, tap } from 'rxjs';
-
 import type {
   AuthUserResponse,
   LoginCredentials,
   RegisterCredentials,
 } from '../../models/user';
+
+import { HttpClient } from '@angular/common/http';
+import { computed, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize, Observable, tap } from 'rxjs';
 
 import { authEndpoints } from '../../shared/constants/apiEndpoints';
 import { tokenStorage } from '../../shared/constants/constants';

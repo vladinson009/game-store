@@ -1,7 +1,8 @@
+import type { AuthUserResponse, UserRole } from '../../models/user';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { finalize, Observable } from 'rxjs';
-import { AuthUserResponse, UserRole } from '../../models/user';
 import { authEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
 

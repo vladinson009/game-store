@@ -1,11 +1,13 @@
-import { Component, computed, input, output, signal } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { GameCollectionSingleResponse } from '../../../models/game';
+import type { GameCollectionSingleResponse } from '../../../models/game';
+
+import { Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { JoinArrayPipe } from '../../../shared/pipes/join-array';
+
+// ? Material
+import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
 @Component({
   selector: 'app-game-card',
   imports: [MatCardModule, RouterLink, JoinArrayPipe, MatIcon, MatButtonModule],

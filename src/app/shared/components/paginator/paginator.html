@@ -1,5 +1,4 @@
 @if (pagination()) {
-
 <mat-paginator class="paginator" (page)="handlePageEvent($event)" [length]="pagination()?.total"
     [pageSize]="pagination()?.limit" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
     [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"

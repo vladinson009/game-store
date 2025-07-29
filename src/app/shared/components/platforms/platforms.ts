@@ -1,11 +1,14 @@
+import type { PlatformData } from '../../../models/platform';
+
 import { Component, OnInit, signal } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import fadeLeftAnimation from '../../../animations/fadeLeftAnimation';
-import { PlatformService } from '../../../core/services/platform.service';
-import { PlatformData } from '../../../models/platform';
 import { finalize } from 'rxjs';
+
+// ? Material
+import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
+import fadeLeftAnimation from '../../../animations/fadeLeftAnimation';
+import { PlatformService } from '../../../core/services/platform.service';
 @Component({
   selector: 'app-platforms',
   imports: [MatCardModule, MatProgressSpinner],

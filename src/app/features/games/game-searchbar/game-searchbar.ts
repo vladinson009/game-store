@@ -1,8 +1,11 @@
 import { Component, OnInit, output } from '@angular/core';
-import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { FocusInput } from '../../../shared/directives/focus-input.directive';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+
+// ? Material
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FocusInput } from '../../../shared/directives/focus-input.directive';
 
 @Component({
   selector: 'app-game-searchbar',

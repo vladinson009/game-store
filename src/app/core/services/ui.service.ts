@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 //? Material
@@ -7,17 +7,12 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UiService {
-  constructor(
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private matDialog: MatDialog
-  ) {}
+  constructor(private snackBar: MatSnackBar, private router: Router) {}
 
   openSnackBar(
     message: string,

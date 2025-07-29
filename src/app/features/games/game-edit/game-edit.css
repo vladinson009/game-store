@@ -25,7 +25,6 @@
 .custom-file-upload {
   display: flex;
   gap: 1rem;
-  /* flex-wrap: wrap; */
   flex-shrink: 1;
   flex-grow: 1;
   justify-content: space-between;

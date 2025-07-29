@@ -1,11 +1,13 @@
 import { Component, Signal } from '@angular/core';
 
 import { RouterLink, RouterLinkActive } from '@angular/router';
+
 //? Material
 import { MatToolbarRow, MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+
 import { AuthService } from '../../core/services/auth.service';
 import slideAnimation from '../../animations/slideAnimation';
 import fadeLeftAnimation from '../../animations/fadeLeftAnimation';

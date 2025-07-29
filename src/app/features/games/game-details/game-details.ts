@@ -1,3 +1,5 @@
+import type { GameCollectionSingleResponse } from '../../../models/game';
+
 import {
   Component,
   input,
@@ -6,22 +8,21 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { GameService } from '../../../core/services/game.service';
-import { GameCollectionSingleResponse } from '../../../models/game';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { JoinArrayPipe } from '../../../shared/pipes/join-array';
 import slideAnimation from '../../../animations/slideAnimation';
 import { CurrencyPipe, DatePipe, Location } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormatDataPipe } from '../../../shared/pipes/format-data-pipe';
+import { DialogModal } from '../../../shared/components/dialog-modal/dialog-modal';
+
+// ? Material
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogModal } from '../../../shared/components/dialog-modal/dialog-modal';
 import { Router, RouterLink } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
-
 @Component({
   selector: 'app-game-details',
   imports: [

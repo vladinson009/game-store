@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import slideAnimation from '../../../animations/slideAnimation';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 
+// ? Material
+import { MatButtonModule } from '@angular/material/button';
+
+import slideAnimation from '../../../animations/slideAnimation';
 @Component({
   selector: 'app-not-found',
   imports: [MatButtonModule, RouterLink],

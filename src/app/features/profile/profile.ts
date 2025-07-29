@@ -1,17 +1,19 @@
-import { Component, OnInit, Signal, signal } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
-import { GameService } from '../../core/services/game.service';
-import { GameCollectionSingleResponse } from '../../models/game';
+import type { GameCollectionSingleResponse } from '../../models/game';
+
+import { Component, OnInit, signal } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+// ? Material
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { AuthUserResponse } from '../../models/user';
-import { JsonPipe, TitleCasePipe } from '@angular/common';
-import slideAnimation from '../../animations/slideAnimation';
-import { RouterLink } from '@angular/router';
 
+import { AuthService } from '../../core/services/auth.service';
+import { GameService } from '../../core/services/game.service';
+import slideAnimation from '../../animations/slideAnimation';
 @Component({
   selector: 'app-profile',
   imports: [

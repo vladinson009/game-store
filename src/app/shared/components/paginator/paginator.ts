@@ -1,18 +1,12 @@
-import { JsonPipe } from '@angular/common';
-import {
-  Component,
-  computed,
-  EventEmitter,
-  input,
-  output,
-  signal,
-} from '@angular/core';
+import type { Pagination } from '../../../models/pagination';
+import { Component, computed, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+// ? Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Pagination } from '../../../models/pagination';
 
 @Component({
   selector: 'app-paginator',

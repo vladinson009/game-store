@@ -1,8 +1,6 @@
 @if (createGameForm != undefined) {
 @let form = createGameForm.controls;
 
-
-
 <form [formGroup]="createGameForm" (ngSubmit)="createGameHandler()" class="form" @slideAnimation>
     <h1 class="form-title">Create Game</h1>
     <!-- Title input field -->
@@ -184,10 +182,6 @@
     }
     <!-- Submit Button -->
 
-    <!-- <p class="form-hint">
-        Already a customer?
-        <a routerLink="/users/login" class="link">Login here</a>
-    </p> -->
 </form>
 
 }

@@ -1,25 +1,19 @@
-<section class="section">
+<section class="section" @slideAnimation>
     <div class="top">
         <div class="left">
             <h1>Manage roles</h1>
         </div>
-        <!-- <div class="right">
-            <h1>Roles 2</h1>
-        </div> -->
     </div>
     <div class="bottom">
         <table class="table" mat-table [dataSource]="users()!" class="mat-elevation-z8">
 
-            <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
+            <!-- Username Column -->
             <ng-container matColumnDef="username">
                 <th mat-header-cell *matHeaderCellDef> Username </th>
                 <td mat-cell *matCellDef="let element"> {{element.username}} </td>
             </ng-container>
 
-            <!-- Name Column -->
+            <!-- Email Column -->
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef> Email </th>
                 <td mat-cell *matCellDef="let element"> {{element.email}} </td>
@@ -45,9 +39,6 @@
                     <button class="update-btn" matButton="elevated" (click)="updateRole(element)">Update</button>
                 </td>
             </ng-container>
-
-
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

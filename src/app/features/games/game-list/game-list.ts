@@ -1,24 +1,28 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import slideAnimation from '../../../animations/slideAnimation';
-import { Paginator } from '../../../shared/components/paginator/paginator';
-import { GameService } from '../../../core/services/game.service';
-import {
+import type { QueryParams } from '../../../models/queryParams';
+import type {
   GameCollectionSingleResponse,
   GamesCollectionResponse,
 } from '../../../models/game';
-import { GameCard } from '../game-card/game-card';
-import { AuthService } from '../../../core/services/auth.service';
-import { Pagination } from '../../../models/pagination';
-import { PageEvent } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { GameSearchbar } from '../game-searchbar/game-searchbar';
+import type { Pagination } from '../../../models/pagination';
+
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+
+// ? Material
+import { PageEvent } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { QueryParams } from '../../../models/queryParams';
+
+import slideAnimation from '../../../animations/slideAnimation';
+import { Paginator } from '../../../shared/components/paginator/paginator';
+import { GameService } from '../../../core/services/game.service';
+import { GameCard } from '../game-card/game-card';
+import { AuthService } from '../../../core/services/auth.service';
+import { GameSearchbar } from '../game-searchbar/game-searchbar';
 
 @Component({
   selector: 'app-game-list',

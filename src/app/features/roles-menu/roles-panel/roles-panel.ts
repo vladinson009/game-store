@@ -1,18 +1,20 @@
-import { Component, NgModule, OnInit, signal } from '@angular/core';
+import type { AuthUserResponse } from '../../../models/user';
+
+import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+// ? Material
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { ModerateService } from '../../../core/services/moderate.service';
-import { AuthUserResponse } from '../../../models/user';
 import { MatTableModule } from '@angular/material/table';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
 
+import { ModerateService } from '../../../core/services/moderate.service';
+import slideAnimation from '../../../animations/slideAnimation';
 @Component({
   selector: 'app-roles-panel',
   imports: [
     MatFormFieldModule,
-    MatInput,
     MatTableModule,
     MatOption,
     MatSelect,
@@ -21,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './roles-panel.html',
   styleUrl: './roles-panel.css',
+  animations: [slideAnimation(1000, 'Y')],
 })
 export class RolesPanel implements OnInit {
   users = signal<AuthUserResponse[] | undefined>(undefined);

@@ -1,3 +1,8 @@
+import type {
+  RegisterCredentials,
+  RegisterUserForm,
+} from '../../../models/user';
+
 import { RouterLink } from '@angular/router';
 import { Component, OnInit, signal } from '@angular/core';
 import {
@@ -6,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 //? Material
 import { MatSelectModule } from '@angular/material/select';
@@ -13,14 +19,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
-import { RegisterCredentials, RegisterUserForm } from '../../../models/user';
 import { matchPasswordValidator } from '../../../shared/utils/repassValidator';
 import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
-import { finalize } from 'rxjs';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',

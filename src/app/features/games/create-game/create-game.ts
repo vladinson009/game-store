@@ -1,37 +1,33 @@
+import type { ImgBBUploadResponse } from '../../../models/imageUpload';
+import type { PlatformData } from '../../../models/platform';
+import type { CategoriesData } from '../../../models/categories';
+import type { CreateGameFormat } from '../../../models/game';
+
+import { finalize } from 'rxjs';
 import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
+// ? Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatError, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
-import { CreateGameFormat } from '../../../models/game';
 import { dateValidator } from '../../../shared/utils/dateFormValidator';
-import { urlValidator } from '../../../shared/utils/urlFormValidator';
+import { numberValidator } from '../../../shared/utils/numberValidator';
 import { GameService } from '../../../core/services/game.service';
-import slideAnimation from '../../../animations/slideAnimation';
-import { JsonPipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { PlatformService } from '../../../core/services/platform.service';
-import {
-  PlatformData,
-  PlatformsCollectionResponse,
-} from '../../../models/platform';
-import { minSelectedValidator } from '../../../shared/utils/minSelectedValidator';
-import { numberValidator } from '../../../shared/utils/numberValidator';
-import { CategoriesData } from '../../../models/categories';
 import { CategoryService } from '../../../core/services/category.service';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
-import { ImgBBUploadResponse } from '../../../models/imageUpload';
+import slideAnimation from '../../../animations/slideAnimation';
 
 @Component({
   selector: 'app-create-game',

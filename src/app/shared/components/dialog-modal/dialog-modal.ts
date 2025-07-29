@@ -1,12 +1,11 @@
-import { Component, Inject, inject, input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+
+// ? Material
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { GameCollectionSingleResponse } from '../../../models/game';
-import { AuthUserResponse } from '../../../models/user';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 

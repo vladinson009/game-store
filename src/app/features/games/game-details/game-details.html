@@ -35,8 +35,6 @@
                             <mat-chip>{{c.name}}</mat-chip>
                             } @empty {}
                         </mat-chip-set>
-                        <!-- <span>{{game.platforms | join_array}}</span> </p> -->
-                        <!-- <p>Author: <span>{{game.author.username}}</span></p> -->
                 </mat-card-subtitle>
             </div>
 
@@ -70,7 +68,6 @@
                     </mat-icon>
                     {{isLiked() ? 'Unlike' : 'Like'}}
                 </button>
-                <!-- <button matButton="elevated">Share<mat-icon>share</mat-icon></button> -->
                 @if(isOwner){
                 <a routerLink="/games/edit/{{game._id}}" matButton="elevated">Edit<mat-icon>edit</mat-icon></a>
                 <button (click)="openDialog()" matButton="elevated">Delete<mat-icon>delete</mat-icon></button>

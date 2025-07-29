@@ -1,14 +1,18 @@
+import type { GameCollectionSingleResponse } from '../../models/game';
+
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 import { Component, OnInit, signal } from '@angular/core';
+
+// ? Material
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 import carouselAnimation from '../../animations/carouselAnimation';
 import slideAnimation from '../../animations/slideAnimation';
 import { RouterLink } from '@angular/router';
 import { Platforms } from '../../shared/components/platforms/platforms';
-import { GameCollectionSingleResponse } from '../../models/game';
 import { GameService } from '../../core/services/game.service';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
 export interface HomeType {
   name: string;
   message: string;

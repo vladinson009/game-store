@@ -1,11 +1,6 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  signal,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
 import { AuthService } from './core/services/auth.service';

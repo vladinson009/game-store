@@ -1,12 +1,13 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import {
+import type {
   GameCollectionSingleResponse,
   GameFormat,
   GameFormatResponse,
   GamesCollectionResponse,
 } from '../../models/game';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { gameEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';

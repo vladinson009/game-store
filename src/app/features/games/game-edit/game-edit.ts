@@ -1,3 +1,12 @@
+import type {
+  CategoriesFromGame,
+  EditGameFormat,
+  PlatformsFromGame,
+} from '../../../models/game';
+import type { PlatformData } from '../../../models/platform';
+import type { CategoriesData } from '../../../models/categories';
+import type { ImgBBUploadResponse } from '../../../models/imageUpload';
+
 import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -5,28 +14,23 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  CategoriesFromGame,
-  EditGameFormat,
-  PlatformsFromGame,
-} from '../../../models/game';
-import { PlatformData } from '../../../models/platform';
-import { CategoriesData } from '../../../models/categories';
+import { finalize } from 'rxjs';
+
+// ? Material
+import { MatIcon } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 import { GameService } from '../../../core/services/game.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { PlatformService } from '../../../core/services/platform.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { FocusInput } from '../../../shared/directives/focus-input.directive';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import slideAnimation from '../../../animations/slideAnimation';
-import { finalize } from 'rxjs';
-import { ImgBBUploadResponse } from '../../../models/imageUpload';
 import { numberValidator } from '../../../shared/utils/numberValidator';
 import { dateValidator } from '../../../shared/utils/dateFormValidator';
 
