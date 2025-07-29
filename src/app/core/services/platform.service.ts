@@ -1,26 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { GameFormat, GameFormatResponse } from '../../models/game';
-import { Observable, tap } from 'rxjs';
-import {
-  gameEndpoints,
-  platformEndpoints,
-} from '../../shared/constants/apiEndpoints';
-import { UiService } from './ui.service';
-import {
-  PlatformFormat,
-  PlatformFormatResponse,
+import type {
+  PlatformData,
   PlatformsCollectionResponse,
 } from '../../models/platform';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { platformEndpoints } from '../../shared/constants/apiEndpoints';
+import { UiService } from './ui.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlatformService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private uiService: UiService) {}
 
   public getAll(): Observable<PlatformsCollectionResponse> {
     return this.http.get<PlatformsCollectionResponse>(platformEndpoints.getAll);
+  }
+  public editPlatform(
+    platformId: string,
+    userInput: { name: string }
+  ): Observable<PlatformData> {
+    return this.http
+      .put<PlatformData>(platformEndpoints.edit(platformId), userInput)
+      .pipe(
+        tap((res) => {
+          this.uiService.openSnackBar(`Platform ${res.name} was updated`);
+        })
+      );
+  }
+  public deletePlatform(platformId: string, name: string) {
+    return this.http.delete(platformEndpoints.delete(platformId)).pipe(
+      tap((res) => {
+        this.uiService.openSnackBar(`Platform ${name} was deleted!`);
+      })
+    );
   }
 }
