@@ -1,0 +1,47 @@
+<section class="section" @slideAnimation>
+    <div class="top">
+        <div class="left">
+            <h1>Categories</h1>
+        </div>
+
+    </div>
+    <div class="bottom">
+        <table class="table" mat-table [dataSource]="categories()!" class="mat-elevation-z8">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="_id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td class="id-class" mat-cell *matCellDef="let element"> {{element._id}}
+                </td>
+            </ng-container>
+
+            <!-- Author Column -->
+            <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef> Author </th>
+                <td mat-cell *matCellDef="let element"> {{element.author.username}} </td>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Rename </th>
+                <td class="action-class" mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <mat-label>New name...</mat-label>
+                        <input [formControl]="inputControl[element._id]" matInput type="text">
+                    </mat-form-field>
+                    <button (click)="updateCategory(element._id)" matButton="filled">Update</button>
+                    <button (click)="deleteCategory(element._id, element.name)" matButton="elevated">Delete</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+</section>
