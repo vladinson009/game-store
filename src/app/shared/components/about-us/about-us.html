@@ -21,4 +21,7 @@
         Have questions or feedback? Reach out at <a href="mailto:contact@gamestore.com">contact&#64;gamestore.com</a> or
         join our Discord community!
     </p>
+    <p>Your Location: <span class="location">{{location()}}</span></p>
+    <iframe class="iframe" [src]="googleMapUrl()" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
