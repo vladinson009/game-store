@@ -1,13 +1,6 @@
 import type { GameCollectionSingleResponse } from '../../../models/game';
 
-import {
-  Component,
-  input,
-  OnChanges,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, input, OnInit, output, signal } from '@angular/core';
 import { GameService } from '../../../core/services/game.service';
 import slideAnimation from '../../../animations/slideAnimation';
 import { CurrencyPipe, DatePipe, Location } from '@angular/common';
