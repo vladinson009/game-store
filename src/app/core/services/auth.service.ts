@@ -29,6 +29,7 @@ export class AuthService {
     return localStorage.getItem(tokenStorage);
   }
   public clearLocalStorage() {
+    this._userData.set(null);
     localStorage.removeItem(tokenStorage);
   }
   public login(credentials: LoginCredentials): Observable<AuthUserResponse> {
@@ -60,7 +61,6 @@ export class AuthService {
       .get<Observable<AuthUserResponse>>(authEndpoints.logout)
       .pipe(
         finalize(() => {
-          this._userData.set(null);
           this.clearLocalStorage();
           this.router.navigate(['/']);
         })
