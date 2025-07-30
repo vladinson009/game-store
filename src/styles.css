@@ -24,9 +24,7 @@ body {
   min-height: calc(100lvh - 1em);
   position: relative;
   background-size: cover;
-  background-position-y: center;
-  background-position-x: center;
-  background-image: url("/images/background.jpg");
+  background-image: url("/images/bck-2.jpg");
 }
 header > * > *,
 footer > * > * {
