@@ -20,3 +20,7 @@ export interface CategoriesCollectionResponse {
     totalPages: number;
   };
 }
+export interface CreateCategoryData {
+  name: string;
+  author: string;
+}

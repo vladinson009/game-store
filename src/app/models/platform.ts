@@ -34,3 +34,9 @@ export interface PlatformData {
     email: string;
   };
 }
+
+export interface CreatePlatformData {
+  name: string;
+  imageUrl: string;
+  author: string;
+}
