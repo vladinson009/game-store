@@ -4,19 +4,20 @@
         <mat-toolbar-row>
             <a class="btn" matButton routerLink="/">
                 <mat-icon>sports_esports</mat-icon>
-                <h2>Game Store</h2>
+                <h2 matTooltip="Home Page">Game Store</h2>
             </a>
             <span class="spacer"></span>
             @if (isUser()) {
             <div class="username-container" @slideAnimation>
-                <p>Welcome back, <span class="username">{{user()?.username}}</span> 😎</p>
+                <p>Welcome back, <span [matTooltip]="user()?.email" class="username">{{user()?.username}}</span> 😎</p>
             </div>
             <span class="spacer"></span>
             }
             <div class="btn-container">
                 <!-- Admin Menu  -->
                 @if (isUser() && role !== undefined && role !== 'user') {
-                <button class="btn" matButton="outlined" [matMenuTriggerFor]="adminMenu">
+                <button matTooltip="{{role === 'admin'? 'Admin' : 'Moderator'}} Settings" class="btn"
+                    matButton="outlined" [matMenuTriggerFor]="adminMenu">
                     {{role === 'admin'? 'Admin' : 'Moderator'}} Panel<mat-icon>admin_panel_settings</mat-icon>
                 </button>
                 <mat-menu #adminMenu="matMenu">
@@ -31,7 +32,7 @@
                 <!-- Admin Menu  -->
                 }
                 <!-- Mat Menu Definition -->
-                <button class="btn" matButton="outlined" [matMenuTriggerFor]="mainMenu">
+                <button matTooltip="Main menu" class="btn" matButton="outlined" [matMenuTriggerFor]="mainMenu">
                     Menu <mat-icon>apps</mat-icon>
                 </button>
                 <mat-menu #mainMenu="matMenu">
@@ -47,7 +48,7 @@
                 <!-- Mat Menu Definition -->
 
                 <!-- User Menu  -->
-                <button class="btn" matButton="outlined" [matMenuTriggerFor]="userMenu">
+                <button matTooltip="User menu" class="btn" matButton="outlined" [matMenuTriggerFor]="userMenu">
                     Profile <mat-icon>account_circle</mat-icon>
                 </button>
                 <mat-menu #userMenu="matMenu">
