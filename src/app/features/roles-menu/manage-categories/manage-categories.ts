@@ -1,7 +1,13 @@
 import type { CategoriesData } from '../../../models/categories';
 
 import { Component, OnInit, signal } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 // ? Material
 import { MatInput } from '@angular/material/input';
@@ -11,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { CategoryService } from '../../../core/services/category.service';
 import slideAnimation from '../../../animations/slideAnimation';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-manage-categories',
@@ -27,11 +34,23 @@ import slideAnimation from '../../../animations/slideAnimation';
   animations: [slideAnimation(1000, 'Y')],
 })
 export class ManageCategories implements OnInit {
+  manageForm: FormGroup | undefined;
   displayedColumns = ['_id', 'author', 'name', 'actions'];
   categories = signal<CategoriesData[] | undefined>(undefined);
   inputControl: { [id: string]: FormControl } = {};
+  author: string;
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private authService: AuthService
+  ) {
+    const auth = this.authService.user()?._id;
+    this.author = auth ?? '';
+
+    this.manageForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    });
+  }
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe((res) => {
@@ -65,5 +84,19 @@ export class ManageCategories implements OnInit {
           prevValue?.filter((el) => el._id !== categoryId)
         );
       });
+  }
+  createCategory() {
+    if (this.manageForm?.invalid) {
+      return;
+    }
+    const author = this.author;
+    const data = { ...this.manageForm?.value, author };
+    this.categoryService.create(data).subscribe(() => {
+      this.manageForm?.reset();
+      Object.values(this.manageForm?.controls ?? {}).forEach((control) => {
+        control.markAsUntouched();
+        control.setErrors(null);
+      });
+    });
   }
 }

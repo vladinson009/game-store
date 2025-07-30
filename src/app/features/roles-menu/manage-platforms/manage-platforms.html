@@ -3,7 +3,27 @@
         <div class="left">
             <h1>Platforms</h1>
         </div>
+        @if(manageForm !== undefined){
 
+        <form [formGroup]="manageForm!" class="create" (ngSubmit)="createPlatform()">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" type="text">
+                @if(manageForm.touched){
+                <mat-error>Name must be at least 3 characters long!</mat-error>
+                }
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Image Url</mat-label>
+                <input matInput formControlName="imageUrl" type="text">
+                @if(manageForm.touched){
+                <mat-error>Invalid Url!</mat-error>
+                }
+            </mat-form-field>
+            <button [disabled]="manageForm.invalid" class="create-btn" matButton="filled">Create Platform</button>
+        </form>
+        }
     </div>
     <div class="bottom">
         <table class="table" mat-table [dataSource]="platforms()!" class="mat-elevation-z8">

@@ -33,3 +33,11 @@ table {
   display: flex;
   gap: 1rem;
 }
+.create {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.create-btn {
+  width: fit-content;
+}
