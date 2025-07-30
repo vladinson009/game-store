@@ -51,6 +51,7 @@ export class GameList implements OnInit, OnDestroy {
     totalPages: 0,
   });
   public isLoading = signal<boolean>(false);
+  public isDisabled = signal(false);
 
   constructor(
     private gameService: GameService,
@@ -62,31 +63,37 @@ export class GameList implements OnInit, OnDestroy {
   public onToggleLike(game: GameCollectionSingleResponse) {
     const userId = this.userId();
     const isLiked = game.likes?.some((l) => l._id == userId);
-
+    this.isDisabled.set(true);
     if (isLiked) {
-      this.gameService.pullLike(game._id).subscribe(() => {
-        game.likes = game.likes?.filter((l) => l._id !== userId);
-        this.games.update((games) =>
-          games?.map((g) =>
-            g._id === game._id ? { ...g, likes: game.likes } : g
-          )
-        );
-      });
-    } else {
-      this.gameService.addLike(game._id).subscribe(() => {
-        const currentUser = this.authService.user();
-        if (currentUser) {
-          game.likes = [
-            ...(game.likes ?? []),
-            { _id: currentUser._id, username: currentUser.username },
-          ];
+      this.gameService
+        .pullLike(game._id)
+        .pipe(finalize(() => this.isDisabled.set(false)))
+        .subscribe(() => {
+          game.likes = game.likes?.filter((l) => l._id !== userId);
           this.games.update((games) =>
             games?.map((g) =>
               g._id === game._id ? { ...g, likes: game.likes } : g
             )
           );
-        }
-      });
+        });
+    } else {
+      this.gameService
+        .addLike(game._id)
+        .pipe(finalize(() => this.isDisabled.set(false)))
+        .subscribe(() => {
+          const currentUser = this.authService.user();
+          if (currentUser) {
+            game.likes = [
+              ...(game.likes ?? []),
+              { _id: currentUser._id, username: currentUser.username },
+            ];
+            this.games.update((games) =>
+              games?.map((g) =>
+                g._id === game._id ? { ...g, likes: game.likes } : g
+              )
+            );
+          }
+        });
     }
   }
   private loadGames(params: QueryParams): void {

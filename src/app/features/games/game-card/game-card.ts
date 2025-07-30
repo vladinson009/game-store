@@ -18,7 +18,7 @@ export class GameCard {
   public gameSignal = input<GameCollectionSingleResponse>();
   public userId = input<string | undefined>(undefined);
   public like = output();
-
+  public isDisabled = input<boolean>();
   public isLiked = computed(
     () =>
       this.gameSignal()?.likes?.some((like) => like._id === this.userId()) ??

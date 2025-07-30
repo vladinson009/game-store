@@ -26,14 +26,15 @@
 
         @if(userId()){
 
-        <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
+        <button [disabled]="isDisabled()" matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
             <mat-icon>
                 {{isLiked() ? 'thumb_down_off_alt' : 'thumb_up_off_alt'}}
             </mat-icon>
             {{isLiked() ? 'Unlike' : 'Like'}}
         </button>
         }
-        <a routerLink="details/{{game._id}}" matButton="tonal" class="details-btn">Details<mat-icon>info</mat-icon></a>
+        <a [disabled]="isDisabled()" routerLink="details/{{game._id}}" matButton="tonal"
+            class="details-btn">Details<mat-icon>info</mat-icon></a>
     </mat-card-actions>
 </mat-card>
 }
