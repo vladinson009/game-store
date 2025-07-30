@@ -11,6 +11,8 @@ import { MatButton } from '@angular/material/button';
 
 import { ModerateService } from '../../../core/services/moderate.service';
 import slideAnimation from '../../../animations/slideAnimation';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 @Component({
   selector: 'app-roles-panel',
   imports: [
@@ -20,6 +22,7 @@ import slideAnimation from '../../../animations/slideAnimation';
     MatSelect,
     MatButton,
     FormsModule,
+    MatProgressSpinner,
   ],
   templateUrl: './roles-panel.html',
   styleUrl: './roles-panel.css',
@@ -28,12 +31,16 @@ import slideAnimation from '../../../animations/slideAnimation';
 export class RolesPanel implements OnInit {
   users = signal<AuthUserResponse[] | undefined>(undefined);
   displayedColumns = ['username', 'email', '_id', 'role'];
+  isLoading = signal(true);
   constructor(private moderateService: ModerateService) {}
 
   private getUsers() {
-    this.moderateService.getAllUsers().subscribe((users) => {
-      this.users.set(users);
-    });
+    this.moderateService
+      .getAllUsers()
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((users) => {
+        this.users.set(users);
+      });
   }
   updateRole(user: AuthUserResponse) {
     this.moderateService.changeRole(user._id, user.role).subscribe();

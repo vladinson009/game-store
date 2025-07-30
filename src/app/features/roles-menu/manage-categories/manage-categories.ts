@@ -18,6 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { CategoryService } from '../../../core/services/category.service';
 import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
+import { finalize } from 'rxjs';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-manage-categories',
@@ -28,6 +30,7 @@ import { AuthService } from '../../../core/services/auth.service';
     FormsModule,
     MatButton,
     ReactiveFormsModule,
+    MatProgressSpinner,
   ],
   templateUrl: './manage-categories.html',
   styleUrl: './manage-categories.css',
@@ -39,6 +42,7 @@ export class ManageCategories implements OnInit {
   categories = signal<CategoriesData[] | undefined>(undefined);
   inputControl: { [id: string]: FormControl } = {};
   author: string;
+  isLoading = signal(true);
 
   constructor(
     private categoryService: CategoryService,
@@ -53,12 +57,15 @@ export class ManageCategories implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.getAll().subscribe((res) => {
-      this.categories.set(res.data);
-      this.categories()?.forEach((el) => {
-        this.inputControl[el._id] = new FormControl('');
+    this.categoryService
+      .getAll()
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((res) => {
+        this.categories.set(res.data);
+        this.categories()?.forEach((el) => {
+          this.inputControl[el._id] = new FormControl('');
+        });
       });
-    });
   }
   updateCategory(categoryId: string) {
     const inputField = this.inputControl[categoryId];

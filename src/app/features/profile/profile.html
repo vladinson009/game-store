@@ -19,6 +19,9 @@
             <h1>Created Games</h1>
         </div>
         <div class="right">
+            @if(isLoading()){
+            <mat-spinner />
+            } @else {
             <table mat-table [dataSource]="myGames()" multiTemplateDataRows class="mat-elevation-z8">
                 @for (column of columnsToDisplay; track column) {
                 <ng-container matColumnDef="{{column}}">
@@ -63,7 +66,7 @@
                 </tr>
                 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
             </table>
-
+            }
         </div>
     </div>
 </section>

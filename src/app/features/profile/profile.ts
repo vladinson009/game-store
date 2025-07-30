@@ -14,6 +14,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { AuthService } from '../../core/services/auth.service';
 import { GameService } from '../../core/services/game.service';
 import slideAnimation from '../../animations/slideAnimation';
+import { finalize } from 'rxjs';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-profile',
   imports: [
@@ -25,12 +27,14 @@ import slideAnimation from '../../animations/slideAnimation';
     TitleCasePipe,
     RouterLink,
     MatButtonModule,
+    MatProgressSpinner,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
   animations: [slideAnimation(1000, 'Y')],
 })
 export class Profile implements OnInit {
+  public isLoading = signal(true);
   public user;
   public myGames = signal<GameCollectionSingleResponse[]>([]);
   public columnsToDisplay = ['title', 'price'];
@@ -58,10 +62,13 @@ export class Profile implements OnInit {
       limit: '100',
     };
 
-    this.gameService.getAll(queryParams).subscribe((res) => {
-      this.myGames.set(
-        res.data.filter((data) => data.author._id === this.user()?._id)
-      );
-    });
+    this.gameService
+      .getAll(queryParams)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((res) => {
+        this.myGames.set(
+          res.data.filter((data) => data.author._id === this.user()?._id)
+        );
+      });
   }
 }

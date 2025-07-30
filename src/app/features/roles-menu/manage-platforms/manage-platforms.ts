@@ -1,6 +1,6 @@
 import type { PlatformData } from '../../../models/platform';
 
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,6 +19,8 @@ import { PlatformService } from '../../../core/services/platform.service';
 import slideAnimation from '../../../animations/slideAnimation';
 import { AuthService } from '../../../core/services/auth.service';
 import { urlValidator } from '../../../shared/utils/urlFormValidator';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-manage-platforms',
@@ -29,6 +31,7 @@ import { urlValidator } from '../../../shared/utils/urlFormValidator';
     FormsModule,
     MatButton,
     ReactiveFormsModule,
+    MatProgressSpinner,
   ],
   templateUrl: './manage-platforms.html',
   styleUrl: './manage-platforms.css',
@@ -40,6 +43,7 @@ export class ManagePlatforms {
   platforms = signal<PlatformData[] | undefined>(undefined);
   inputControl: { [id: string]: FormControl } = {};
   author: string;
+  isLoading = signal(true);
 
   constructor(
     private platformService: PlatformService,
@@ -59,12 +63,15 @@ export class ManagePlatforms {
   }
 
   ngOnInit(): void {
-    this.platformService.getAll().subscribe((res) => {
-      this.platforms.set(res.data);
-      this.platforms()?.forEach((el) => {
-        this.inputControl[el._id] = new FormControl('');
+    this.platformService
+      .getAll()
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((res) => {
+        this.platforms.set(res.data);
+        this.platforms()?.forEach((el) => {
+          this.inputControl[el._id] = new FormControl('');
+        });
       });
-    });
   }
   updatePlatforms(platformId: string) {
     const inputField = this.inputControl[platformId];

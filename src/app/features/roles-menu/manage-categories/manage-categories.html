@@ -21,6 +21,9 @@
         }
     </div>
     <div class="bottom">
+        @if(isLoading()){
+        <mat-spinner />
+        } @else {
         <table class="table" mat-table [dataSource]="categories()!" class="mat-elevation-z8">
 
             <!-- ID Column -->
@@ -57,6 +60,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
+        }
     </div>
 </section>
