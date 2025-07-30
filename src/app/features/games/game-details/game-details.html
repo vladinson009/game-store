@@ -69,7 +69,8 @@
                     {{isLiked() ? 'Unlike' : 'Like'}}
                 </button>
                 @if(isOwner){
-                <a routerLink="/games/edit/{{game._id}}" matButton="elevated">Edit<mat-icon>edit</mat-icon></a>
+                <a [disabled]="isLoading()" routerLink="/games/edit/{{game._id}}"
+                    matButton="elevated">Edit<mat-icon>edit</mat-icon></a>
                 <button [disabled]="isLoading()" (click)="openDialog()"
                     matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
                 }
