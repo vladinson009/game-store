@@ -59,12 +59,12 @@ export class Register implements OnInit {
         email: this.fb.nonNullable.control('', {
           validators: [
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(6),
             Validators.email,
           ],
         }),
         password: this.fb.nonNullable.control('', {
-          validators: [Validators.required, Validators.minLength(3)],
+          validators: [Validators.required, Validators.minLength(6)],
         }),
         repass: this.fb.nonNullable.control('', {
           validators: [Validators.required],

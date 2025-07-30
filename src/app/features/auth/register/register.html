@@ -43,7 +43,7 @@
         <mat-error>Email is required!</mat-error>
         }
         @else if (form.email.hasError('minlength') && form.email.touched) {
-        <mat-error>Email must be at least 3 characters long!</mat-error>
+        <mat-error>Email must be at least 6 characters long!</mat-error>
         }
         @else if(form.email.hasError('email') && form.email.touched){
         <mat-error>Enter a valid email adress!</mat-error>
@@ -70,7 +70,7 @@
         <mat-error>Password is required!</mat-error>
         }
         @else if (form.password.hasError('minlength') && form.password.touched) {
-        <mat-error>Password must be at least 3 characters long!</mat-error>
+        <mat-error>Password must be at least 6 characters long!</mat-error>
         }
         <!--!Error messages  -->
     </mat-form-field>
