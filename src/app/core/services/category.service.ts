@@ -1,6 +1,7 @@
 import type {
   CategoriesCollectionResponse,
   CategoriesData,
+  CreateCategoryData,
 } from '../../models/categories';
 
 import { HttpClient } from '@angular/common/http';
@@ -20,9 +21,19 @@ export class CategoryService {
     private router: Router
   ) {}
 
+  public create(inputData: CreateCategoryData): Observable<CategoriesData> {
+    return this.http
+      .post<CategoriesData>(categoryEndpoints.create, inputData)
+      .pipe(
+        tap((res) => {
+          this.uiService.openSnackBar(`Category ${res.name} was created!`);
+        })
+      );
+  }
+
   public getAll(): Observable<CategoriesCollectionResponse> {
     return this.http.get<CategoriesCollectionResponse>(
-      categoryEndpoints.getAll
+      categoryEndpoints.getAll + '?limit=99'
     );
   }
   public editCategory(
