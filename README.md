@@ -2,7 +2,11 @@
 
 Deployment: <a href="https://game-store-lemon-gamma.vercel.app" target="_blank" rel="noopener noreferrer">game-store-lemon-gamma.vercel.app</a>
 
-Ready to use solution with deployed backend and frontend servers
+Ready to use solution with deployed backend and frontend servers.
+
+```
+!! The server is free tier so it takes around 50 seconds to wake up first and stay awake for 15 mins after last user request !!
+```
 
 ---
 
@@ -182,6 +186,7 @@ Once the servers are running, open your browser and navigate to `http://localhos
 
 ## Bonuses
 
+- Using Geo Location in About Us page
 - Using ImgBB file storage to store photos
 - Deployment at <a href="https://game-store-lemon-gamma.vercel.app" target="_blank" rel="noopener noreferrer">game-store-lemon-gamma.vercel.app</a>
 - Angular animations
