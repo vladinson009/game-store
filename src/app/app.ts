@@ -18,14 +18,15 @@ export class App implements OnInit {
   constructor(
     private authService: AuthService,
     private gameService: GameService
-  ) {}
+  ) {
+    if (this.authService.getLocalStorage()) {
+      this.authService.retrieveUser().subscribe();
+    }
+  }
 
   ngOnInit(): void {
     this.gameService.getRecent().subscribe((res) => {
       this.totalGames.set(res.pagination.total);
     });
-    if (this.authService.getLocalStorage()) {
-      this.authService.retrieveUser().subscribe();
-    }
   }
 }
