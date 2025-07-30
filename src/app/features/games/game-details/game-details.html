@@ -62,7 +62,7 @@
             @if (isLogged) {
 
             <mat-card-actions class="actions">
-                <button matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
+                <button [disabled]="isLoading()" matButton="tonal" [class.unlike]="isLiked()" (click)="toggleLike()">
                     <mat-icon>
                         {{isLiked() ? 'thumb_down_off_alt' : 'thumb_up_off_alt'}}
                     </mat-icon>
@@ -70,7 +70,8 @@
                 </button>
                 @if(isOwner){
                 <a routerLink="/games/edit/{{game._id}}" matButton="elevated">Edit<mat-icon>edit</mat-icon></a>
-                <button (click)="openDialog()" matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
+                <button [disabled]="isLoading()" (click)="openDialog()"
+                    matButton="elevated">Delete<mat-icon>delete</mat-icon></button>
                 }
             </mat-card-actions>
             }

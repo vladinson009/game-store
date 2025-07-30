@@ -23,6 +23,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterLink } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
+import { finalize } from 'rxjs';
 @Component({
   selector: 'app-game-details',
   imports: [
@@ -40,13 +41,14 @@ import { MatChipsModule } from '@angular/material/chips';
   styleUrl: './game-details.css',
   animations: [slideAnimation(1000, 'Y')],
 })
-export class GameDetails implements OnInit, OnChanges {
+export class GameDetails implements OnInit {
   public gameId = input<string>('');
   public gameSignal = signal<GameCollectionSingleResponse | null>(null);
   public isLiked = signal<boolean>(false);
   public isOwner: boolean = false;
   public isLogged: boolean = false;
   public like = output();
+  public isLoading = signal(false);
 
   constructor(
     private gameService: GameService,
@@ -57,26 +59,33 @@ export class GameDetails implements OnInit, OnChanges {
   ) {}
 
   toggleLike() {
+    this.isLoading.set(true);
     if (this.isLiked()) {
-      this.gameService.pullLike(this.gameId()).subscribe((res) => {
-        this.gameSignal.update((prevValue) => {
-          const oldValue = { ...prevValue };
-          oldValue.likes = res.likes;
-          oldValue.updatedAt = res.updatedAt;
-          return oldValue as GameCollectionSingleResponse;
+      this.gameService
+        .pullLike(this.gameId())
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe((res: GameCollectionSingleResponse) => {
+          this.gameSignal.update((prevValue) => {
+            const oldValue = { ...prevValue };
+            oldValue.likes = res.likes;
+            oldValue.updatedAt = res.updatedAt;
+            return oldValue as GameCollectionSingleResponse;
+          });
+          this.isLiked.set(false);
         });
-        this.isLiked.set(false);
-      });
     } else {
-      this.gameService.addLike(this.gameId()).subscribe((res) => {
-        this.gameSignal.update((prevValue) => {
-          const oldValue = { ...prevValue };
-          oldValue.likes = res.likes;
-          oldValue.updatedAt = res.updatedAt;
-          return oldValue as GameCollectionSingleResponse;
+      this.gameService
+        .addLike(this.gameId())
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe((res: GameCollectionSingleResponse) => {
+          this.gameSignal.update((prevValue) => {
+            const oldValue = { ...prevValue };
+            oldValue.likes = res.likes;
+            oldValue.updatedAt = res.updatedAt;
+            return oldValue as GameCollectionSingleResponse;
+          });
+          this.isLiked.set(true);
         });
-        this.isLiked.set(true);
-      });
     }
   }
   onBack() {
@@ -92,11 +101,16 @@ export class GameDetails implements OnInit, OnChanges {
     });
   }
   public onDeleteGame() {
-    this.gameService.deleteById(this.gameId()).subscribe((res) => {
-      this.router.navigate(['/games']);
-    });
+    this.isLoading.set(true);
+    this.gameService
+      .deleteById(this.gameId())
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((res) => {
+        this.router.navigate(['/games']);
+      });
   }
   ngOnInit() {
+    // Demonstrate use of input signals for URL params
     this.gameService.getById(this.gameId()).subscribe((response) => {
       const user = this.authService.user();
       this.gameSignal.set(response);
@@ -110,5 +124,4 @@ export class GameDetails implements OnInit, OnChanges {
       }
     });
   }
-  ngOnChanges() {}
 }
