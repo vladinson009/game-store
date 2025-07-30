@@ -7,6 +7,7 @@ import { MatToolbarRow, MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
 
 import { AuthService } from '../../core/services/auth.service';
 import slideAnimation from '../../animations/slideAnimation';
@@ -22,6 +23,7 @@ import fadeLeftAnimation from '../../animations/fadeLeftAnimation';
     RouterLinkActive,
     MatIcon,
     MatMenuModule,
+    MatTooltip,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
