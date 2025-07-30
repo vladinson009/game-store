@@ -41,3 +41,7 @@
 .spinner-create {
   translate: 150%;
 }
+.form-btn {
+  display: flex;
+  gap: 1.5rem;
+}

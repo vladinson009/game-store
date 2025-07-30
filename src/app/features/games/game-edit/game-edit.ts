@@ -33,6 +33,7 @@ import { FocusInput } from '../../../shared/directives/focus-input.directive';
 import slideAnimation from '../../../animations/slideAnimation';
 import { numberValidator } from '../../../shared/utils/numberValidator';
 import { dateValidator } from '../../../shared/utils/dateFormValidator';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-edit',
@@ -66,7 +67,8 @@ export class GameEdit implements OnInit {
     private authService: AuthService,
     private platformService: PlatformService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.editGameForm = this.fb.nonNullable.group({
       title: this.fb.nonNullable.control('', {
@@ -171,6 +173,9 @@ export class GameEdit implements OnInit {
     this.categoryService
       .getAll()
       .subscribe((res) => (this.categories = res.data));
+  }
+  public onBack() {
+    this.location.back();
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {

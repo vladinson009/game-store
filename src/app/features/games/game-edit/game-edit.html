@@ -177,8 +177,12 @@
     <mat-spinner class="spinner" />
     } @else {
 
-    <button class="form-btn" matButton="filled" type="submit" [disabled]="editGameForm.invalid || isLoading()">Edit
-        Game</button>
+    <div class="form-btn">
+
+        <button matButton="elevated" type="button" (click)="onBack()"><mat-icon>arrow_back</mat-icon>Back</button>
+        <button matButton="filled" type="submit" [disabled]="editGameForm.invalid || isLoading()">Edit
+            Game</button>
+    </div>
     }
     <!-- Submit Button -->
 </form>
