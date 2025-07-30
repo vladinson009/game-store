@@ -1,10 +1,11 @@
 import type {
+  CreatePlatformData,
   PlatformData,
   PlatformsCollectionResponse,
 } from '../../models/platform';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, input } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { platformEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
@@ -15,8 +16,20 @@ import { UiService } from './ui.service';
 export class PlatformService {
   constructor(private http: HttpClient, private uiService: UiService) {}
 
+  public create(inputData: CreatePlatformData): Observable<PlatformData> {
+    return this.http
+      .post<PlatformData>(platformEndpoints.create, inputData)
+      .pipe(
+        tap((res) => {
+          this.uiService.openSnackBar(`Platform ${res.name} was created!`);
+        })
+      );
+  }
+
   public getAll(): Observable<PlatformsCollectionResponse> {
-    return this.http.get<PlatformsCollectionResponse>(platformEndpoints.getAll);
+    return this.http.get<PlatformsCollectionResponse>(
+      platformEndpoints.getAll + '?limit=99'
+    );
   }
   public editPlatform(
     platformId: string,
