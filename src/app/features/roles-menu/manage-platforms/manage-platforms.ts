@@ -1,7 +1,13 @@
 import type { PlatformData } from '../../../models/platform';
 
 import { Component, signal } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 // ? Material
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +17,8 @@ import { MatButton } from '@angular/material/button';
 
 import { PlatformService } from '../../../core/services/platform.service';
 import slideAnimation from '../../../animations/slideAnimation';
+import { AuthService } from '../../../core/services/auth.service';
+import { urlValidator } from '../../../shared/utils/urlFormValidator';
 
 @Component({
   selector: 'app-manage-platforms',
@@ -27,11 +35,28 @@ import slideAnimation from '../../../animations/slideAnimation';
   animations: [slideAnimation(1000, 'Y')],
 })
 export class ManagePlatforms {
+  manageForm: FormGroup | undefined;
   displayedColumns = ['_id', 'author', 'name', 'actions'];
   platforms = signal<PlatformData[] | undefined>(undefined);
   inputControl: { [id: string]: FormControl } = {};
+  author: string;
 
-  constructor(private platformService: PlatformService) {}
+  constructor(
+    private platformService: PlatformService,
+    private authService: AuthService
+  ) {
+    const auth = this.authService.user()?._id;
+    this.author = auth ?? '';
+
+    this.manageForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      imageUrl: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        urlValidator,
+      ]),
+    });
+  }
 
   ngOnInit(): void {
     this.platformService.getAll().subscribe((res) => {
@@ -65,5 +90,19 @@ export class ManagePlatforms {
           prevValue?.filter((el) => el._id !== platformId)
         );
       });
+  }
+  createPlatform() {
+    if (this.manageForm?.invalid) {
+      return;
+    }
+    const author = this.author;
+    const data = { ...this.manageForm?.value, author };
+    this.platformService.create(data).subscribe(() => {
+      this.manageForm?.reset();
+      Object.values(this.manageForm?.controls ?? {}).forEach((control) => {
+        control.markAsUntouched();
+        control.setErrors(null);
+      });
+    });
   }
 }
