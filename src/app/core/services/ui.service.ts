@@ -1,12 +1,10 @@
+import type { OpenSnackBar } from '../../models/snackBar';
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 //? Material
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +16,7 @@ export class UiService {
     message: string,
     action = '',
     duration = 4000,
-    config: {
-      horizontalPosition?: MatSnackBarHorizontalPosition;
-      verticalPosition?: MatSnackBarVerticalPosition;
-      panelClass?: string[];
-      redirectTo?: string;
-    } = {}
+    config: OpenSnackBar = {}
   ) {
     const snackBarRef = this.snackBar.open(message, action, {
       duration,
