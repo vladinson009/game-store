@@ -5,7 +5,7 @@ import type {
 } from '../../models/platform';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable, input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { platformEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
