@@ -8,7 +8,7 @@ import type {
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { gameEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
 import { QueryParams } from '../../models/queryParams';
@@ -17,6 +17,8 @@ import { QueryParams } from '../../models/queryParams';
   providedIn: 'root',
 })
 export class GameService {
+  public totalGames$ = new BehaviorSubject(0);
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -55,16 +57,21 @@ export class GameService {
     );
   }
   public getAll(params: QueryParams): Observable<GamesCollectionResponse> {
-    // const queryString = `?page=${page}&limit=${limit}`;
     let httpParams = new HttpParams();
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
         httpParams = httpParams.set(key, value);
       }
     });
-    return this.http.get<GamesCollectionResponse>(gameEndpoints.getAll, {
-      params: httpParams,
-    });
+    return this.http
+      .get<GamesCollectionResponse>(gameEndpoints.getAll, {
+        params: httpParams,
+      })
+      .pipe(
+        tap((res) => {
+          this.totalGames$.next(res.pagination.total);
+        })
+      );
   }
   public deleteById(gameId: string): Observable<GameCollectionSingleResponse> {
     return this.http.delete<GameCollectionSingleResponse>(
@@ -72,9 +79,9 @@ export class GameService {
     );
   }
   public getRecent(): Observable<GamesCollectionResponse> {
-    return this.http.get<GamesCollectionResponse>(
-      gameEndpoints.getAll + '?limit=1'
-    );
+    return this.http
+      .get<GamesCollectionResponse>(gameEndpoints.getAll + '?limit=1')
+      .pipe(tap((res) => this.totalGames$.next(res.pagination.total)));
   }
   public addLike(id: string): Observable<any> {
     return this.http.get<any>(gameEndpoints.like(id));
