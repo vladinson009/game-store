@@ -166,9 +166,9 @@ Once the servers are running, open your browser and navigate to `http://localhos
 - TypeScript specific types in separated folder avoiding "any"
 - Many interfaces and Types
 - Observables
-- RxJS operators like `catchError`, `EMPTY`, `throwError`, `finalize`, `Observable`, `tap`, `debounceTime`
+- RxJS operators like `catchError`, `EMPTY`, `throwError`, `finalize`, `Observable`, `tap`, `debounceTime`, `switchMap`
 - Lifecycle hooks like `ngOnInit`, `ngOnDestroy`, `ngAfterViewInit`
-- pipes like `tap`, `finalize`, `debounceTime`
+- pipes like `tap`, `finalize`, `debounceTime`, `switchMap`
 
 ### Route Guards for Private and Public users
 
