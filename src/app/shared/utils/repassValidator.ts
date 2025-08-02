@@ -1,5 +1,6 @@
 import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
+// Custom control form validator
 export function matchPasswordValidator(
   passwordKey: string,
   repassKey: string

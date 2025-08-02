@@ -70,6 +70,7 @@ export class GameEdit implements OnInit {
     private route: ActivatedRoute,
     private location: Location
   ) {
+    // Init empty form
     this.editGameForm = this.fb.nonNullable.group({
       title: this.fb.nonNullable.control('', {
         validators: [Validators.required, Validators.minLength(3)],
@@ -89,6 +90,8 @@ export class GameEdit implements OnInit {
       platforms: this.fb.nonNullable.control<string[]>([]),
     });
   }
+
+  // Edit form handler
   public editGameHandler() {
     if (!this.editGameForm || this.editGameForm.invalid) {
       return;
@@ -146,6 +149,7 @@ export class GameEdit implements OnInit {
       });
     }
   }
+  // Reset selected input
   public resetInput(event: MouseEvent, inputName: keyof EditGameFormat): void {
     event.preventDefault();
     if (inputName === 'image') {
@@ -154,6 +158,7 @@ export class GameEdit implements OnInit {
       this.editGameForm?.get(inputName)?.setValue('');
     }
   }
+  // onchange event to check if new image was selected
   public onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
 
@@ -164,20 +169,25 @@ export class GameEdit implements OnInit {
       this.editGameForm?.get('image')?.updateValueAndValidity();
     }
   }
+  // Get dynamicly all platforms
   public getPlatforms() {
     this.platformService
       .getAll()
       .subscribe((res) => (this.platforms = res.data));
   }
+  // Get dynamicly all platforms
   public getCategories() {
     this.categoryService
       .getAll()
       .subscribe((res) => (this.categories = res.data));
   }
+  // Navigate you back to the current game
   public onBack() {
     this.location.back();
   }
-  ngOnInit(): void {
+
+  // Load selected game by params
+  public loadCurrentGame() {
     this.route.paramMap.subscribe((params) => {
       const gameId = params.get('gameId');
       this.gameId = gameId ?? '';
@@ -211,5 +221,8 @@ export class GameEdit implements OnInit {
         });
       }
     });
+  }
+  ngOnInit(): void {
+    this.loadCurrentGame();
   }
 }

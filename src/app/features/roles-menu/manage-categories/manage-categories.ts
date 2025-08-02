@@ -56,7 +56,8 @@ export class ManageCategories implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  //Init form control for each category
+  initFormFields() {
     this.categoryService
       .getAll()
       .pipe(finalize(() => this.isLoading.set(false)))
@@ -67,6 +68,7 @@ export class ManageCategories implements OnInit {
         });
       });
   }
+  // Update category name
   updateCategory(categoryId: string) {
     const inputField = this.inputControl[categoryId];
     this.categoryService
@@ -83,6 +85,7 @@ export class ManageCategories implements OnInit {
         });
       });
   }
+  // Delete category by id
   deleteCategory(categoryId: string, categoryName: string) {
     this.categoryService
       .deleteCategory(categoryId, categoryName)
@@ -92,6 +95,7 @@ export class ManageCategories implements OnInit {
         );
       });
   }
+  // Create new category
   createCategory() {
     if (this.manageForm?.invalid) {
       return;
@@ -105,5 +109,9 @@ export class ManageCategories implements OnInit {
         control.setErrors(null);
       });
     });
+  }
+
+  ngOnInit(): void {
+    this.initFormFields();
   }
 }

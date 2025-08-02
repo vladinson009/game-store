@@ -21,6 +21,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   styleUrl: './paginator.css',
 })
 export class Paginator {
+  // Reusable paginator
   public pagination = input<Pagination | null>();
   public pageChanged = output<PageEvent>();
   public pageIndex = computed(() => (this.pagination()?.page || 1) - 1);

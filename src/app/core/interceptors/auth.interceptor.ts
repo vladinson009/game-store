@@ -11,9 +11,12 @@ import { UiService } from '../services/ui.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const uiService = inject(UiService);
+
+  // Early exit in case of request to ImgBB
   if (req.url.includes('https://api.imgbb.com/1/upload?')) {
     return next(req);
   }
+
   const token = authService.user()?.token || authService.getLocalStorage();
 
   if (token) {

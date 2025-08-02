@@ -9,17 +9,13 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { categoryEndpoints } from '../../shared/constants/apiEndpoints';
 import { UiService } from './ui.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(
-    private http: HttpClient,
-    private uiService: UiService,
-    private router: Router
-  ) {}
+  // Category server to manage games categories wit all CRUD operations
+  constructor(private http: HttpClient, private uiService: UiService) {}
 
   public create(inputData: CreateCategoryData): Observable<CategoriesData> {
     return this.http

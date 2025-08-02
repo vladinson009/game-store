@@ -50,6 +50,7 @@ export class Register implements OnInit {
   public isLoading = signal(false);
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
+  // Form build
   private buildForm() {
     this.registerForm = this.fb.nonNullable.group(
       {
@@ -73,7 +74,7 @@ export class Register implements OnInit {
       { validators: [matchPasswordValidator('password', 'repass')] }
     );
   }
-
+  // Form event
   public registerFormHandler() {
     if (!this.registerForm || this.registerForm.invalid) {
       return;
@@ -97,7 +98,7 @@ export class Register implements OnInit {
         },
       });
   }
-
+  // Reusable reset input field
   public resetInput(
     event: MouseEvent,
     inputName: keyof RegisterUserForm

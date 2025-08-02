@@ -12,4 +12,6 @@ import slideAnimation from '../../../animations/slideAnimation';
   styleUrl: './not-found.css',
   animations: [slideAnimation(1000, 'X')],
 })
+
+// Not found dummy page
 export class NotFound {}

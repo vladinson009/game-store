@@ -25,9 +25,12 @@ export class GameService {
     private uiService: UiService
   ) {}
 
+  // Upload image request
   public uploadImage(formData: FormData) {
     return this.http.post<any>(gameEndpoints.uploadFileUrl, formData);
   }
+
+  // Create new game
   public createGame(userInput: GameFormat): Observable<GameFormatResponse> {
     return this.http
       .post<GameFormatResponse>(gameEndpoints.create, userInput)
@@ -38,6 +41,7 @@ export class GameService {
         })
       );
   }
+  // Edit game by gameId
   public editGame(
     gameId: string,
     userInput: GameFormat
@@ -51,11 +55,13 @@ export class GameService {
         })
       );
   }
+  // Get single data
   public getById(gameId: string): Observable<GameCollectionSingleResponse> {
     return this.http.get<GameCollectionSingleResponse>(
       gameEndpoints.getById(gameId)
     );
   }
+  // Get all games in the store using pagination
   public getAll(params: QueryParams): Observable<GamesCollectionResponse> {
     let httpParams = new HttpParams();
     Object.entries(params).forEach(([key, value]) => {
@@ -73,16 +79,20 @@ export class GameService {
         })
       );
   }
+  // Delete game by id
   public deleteById(gameId: string): Observable<GameCollectionSingleResponse> {
     return this.http.delete<GameCollectionSingleResponse>(
       gameEndpoints.delete(gameId)
     );
   }
+  // Get most recent game in the store
   public getRecent(): Observable<GamesCollectionResponse> {
     return this.http
       .get<GamesCollectionResponse>(gameEndpoints.getAll + '?limit=1')
       .pipe(tap((res) => this.totalGames$.next(res.pagination.total)));
   }
+
+  // Like & Unlke methods
   public addLike(id: string): Observable<any> {
     return this.http.get<any>(gameEndpoints.like(id));
   }

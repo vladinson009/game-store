@@ -4,6 +4,7 @@ import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
   selector: '[appCopyright]',
 })
 export class CopyrightDirective implements OnInit {
+  // Copyrigt directive adding textContent and class to DOM element
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {

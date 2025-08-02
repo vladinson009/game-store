@@ -61,8 +61,8 @@ export class ManagePlatforms {
       ]),
     });
   }
-
-  ngOnInit(): void {
+  // Init form controls for each platform
+  initPlatforms() {
     this.platformService
       .getAll()
       .pipe(finalize(() => this.isLoading.set(false)))
@@ -73,6 +73,7 @@ export class ManagePlatforms {
         });
       });
   }
+  // Update platform name
   updatePlatforms(platformId: string) {
     const inputField = this.inputControl[platformId];
     this.platformService
@@ -89,6 +90,7 @@ export class ManagePlatforms {
         });
       });
   }
+  // Delete platform by id
   deletePlatform(platformId: string, platformName: string) {
     this.platformService
       .deletePlatform(platformId, platformName)
@@ -98,6 +100,7 @@ export class ManagePlatforms {
         );
       });
   }
+  // Create new platform
   createPlatform() {
     if (this.manageForm?.invalid) {
       return;
@@ -111,5 +114,9 @@ export class ManagePlatforms {
         control.setErrors(null);
       });
     });
+  }
+
+  ngOnInit(): void {
+    this.initPlatforms();
   }
 }

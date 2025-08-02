@@ -24,6 +24,7 @@ export class GameCard {
       this.gameSignal()?.likes?.some((like) => like._id === this.userId()) ??
       false
   );
+  // Toggle like event emitter
   toggleLike() {
     this.like.emit();
   }

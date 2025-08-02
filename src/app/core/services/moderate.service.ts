@@ -12,9 +12,12 @@ import { UiService } from './ui.service';
 export class ModerateService {
   constructor(private http: HttpClient, private uiService: UiService) {}
 
+  // Get all users from the server
   public getAllUsers(): Observable<AuthUserResponse[]> {
     return this.http.get<AuthUserResponse[]>(authEndpoints.getAll);
   }
+
+  // Change roles if you are an admin
   public changeRole(userId: string, role: UserRole) {
     return this.http.put(authEndpoints.editRole(userId), { role }).pipe(
       finalize(() => {
@@ -24,6 +27,7 @@ export class ModerateService {
       })
     );
   }
+  // Delete users if you are an admin
   public deleteUser(userId: string) {
     return this.http.get(authEndpoints.deleteUser(userId)).pipe(
       finalize(() => {

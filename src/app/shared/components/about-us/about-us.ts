@@ -20,12 +20,13 @@ export class AboutUs implements OnInit {
       )
     );
   }
-
+  // Sanitize Url
   getSafeUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  ngOnInit(): void {
+  // Request user for location
+  getUserLocatioin() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -41,5 +42,9 @@ export class AboutUs implements OnInit {
     } else {
       this.location.set('Geolocation is not supported by this browser.');
     }
+  }
+
+  ngOnInit(): void {
+    this.getUserLocatioin();
   }
 }

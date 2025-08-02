@@ -32,6 +32,7 @@ export class AuthService {
     this._userData.set(null);
     localStorage.removeItem(tokenStorage);
   }
+  //When login and register, set user data in app state and add auth token in local storage
   public login(credentials: LoginCredentials): Observable<AuthUserResponse> {
     return this.http
       .post<AuthUserResponse>(authEndpoints.login, credentials)
@@ -56,6 +57,7 @@ export class AuthService {
         })
       );
   }
+  // When logout, invalidate token in server, clear state and local storage in private method
   public logout() {
     return this.http
       .get<Observable<AuthUserResponse>>(authEndpoints.logout)
@@ -66,6 +68,8 @@ export class AuthService {
         })
       );
   }
+
+  // When browser refresh, if it is token in the local storage, send auth request and retrieve user data to app state
   public retrieveUser(): Observable<AuthUserResponse> {
     return this.http.get<AuthUserResponse>(authEndpoints.me).pipe(
       tap((res) => {

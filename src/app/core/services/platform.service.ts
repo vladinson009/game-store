@@ -14,6 +14,8 @@ import { UiService } from './ui.service';
   providedIn: 'root',
 })
 export class PlatformService {
+  // Platform server to manage games platforms wit all CRUD operations
+
   constructor(private http: HttpClient, private uiService: UiService) {}
 
   public create(inputData: CreatePlatformData): Observable<PlatformData> {

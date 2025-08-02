@@ -4,6 +4,8 @@ import { Home } from './layout/home/home';
 import { AboutUs } from './shared/components/about-us/about-us';
 import { NotFound } from './shared/components/not-found/not-found';
 
+// Each module is lazy loaded to reduce app init bundle
+// (Load moderate module only for admin and moderator role)
 export const routes: Routes = [
   {
     path: '',

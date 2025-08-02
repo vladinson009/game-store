@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UiService {
   constructor(private snackBar: MatSnackBar, private router: Router) {}
 
+  // Custom snackbar with parameters showing notification
   openSnackBar(
     message: string,
     action = '',

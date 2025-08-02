@@ -34,6 +34,7 @@ export class RolesPanel implements OnInit {
   isLoading = signal(true);
   constructor(private moderateService: ModerateService) {}
 
+  // Get all users
   private getUsers() {
     this.moderateService
       .getAllUsers()
@@ -42,9 +43,11 @@ export class RolesPanel implements OnInit {
         this.users.set(users);
       });
   }
+  // Update user role
   updateRole(user: AuthUserResponse) {
     this.moderateService.changeRole(user._id, user.role).subscribe();
   }
+  // Delete user by id
   deleteUser(id: string) {
     this.moderateService.deleteUser(id).subscribe();
     this.users.update((prevValue) => {

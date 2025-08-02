@@ -60,6 +60,7 @@ export class GameList implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+  //Toggle like from main list
   public onToggleLike(game: GameCollectionSingleResponse) {
     const userId = this.userId();
     const isLiked = game.likes?.some((l) => l._id == userId);
@@ -96,6 +97,7 @@ export class GameList implements OnInit, OnDestroy {
         });
     }
   }
+  // Load all games with selected query params
   private loadGames(params: QueryParams): void {
     this.isLoading.set(true);
     this.gameService
@@ -107,6 +109,7 @@ export class GameList implements OnInit, OnDestroy {
         this.pagination.set(res.pagination);
       });
   }
+  // Page change event to sync query params
   public onPageChanged(event: PageEvent): void {
     const newPage = event.pageIndex + 1;
     const newLimit = event.pageSize;
@@ -120,6 +123,7 @@ export class GameList implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
     });
   }
+  // Query params observer to observe for changes in query params
   private queryParamsHandler() {
     this.subscriptions = this.route.queryParams.subscribe((params) => {
       const filteredParams = Object.fromEntries(
@@ -129,6 +133,7 @@ export class GameList implements OnInit, OnDestroy {
       this.loadGames(filteredParams);
     });
   }
+  // Added search text into query params
   onSearch(value: string) {
     this.router.navigate([], {
       relativeTo: this.route,

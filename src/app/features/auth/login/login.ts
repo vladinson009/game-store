@@ -47,6 +47,7 @@ export class Login implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
+  // Form Builder
   private buildForm() {
     this.loginForm = this.fb.nonNullable.group({
       username: this.fb.nonNullable.control('', {
@@ -57,6 +58,8 @@ export class Login implements OnInit {
       }),
     });
   }
+
+  // Form Event
   public loginFormHandler() {
     if (!this.loginForm || this.loginForm.invalid) {
       return;
@@ -77,10 +80,13 @@ export class Login implements OnInit {
         },
       });
   }
+
+  // Reusable reset input helper
   public resetInput(event: MouseEvent, inputName: keyof LoginUserForm): void {
     event.preventDefault();
     this.loginForm?.get(inputName)?.setValue('');
   }
+
   ngOnInit(): void {
     this.buildForm();
   }

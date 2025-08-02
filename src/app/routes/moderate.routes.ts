@@ -5,6 +5,7 @@ import { ManageCategories } from '../features/roles-menu/manage-categories/manag
 import { adminAndModeratorOnlyGuard } from '../core/guards/admin-and-moderator-guard';
 import { ManagePlatforms } from '../features/roles-menu/manage-platforms/manage-platforms';
 
+// Module for moderation
 export const moderateRoutes: Routes = [
   {
     path: 'change-roles',

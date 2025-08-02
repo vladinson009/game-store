@@ -5,6 +5,8 @@ import { formatDistanceToNow } from 'date-fns';
   name: 'formatData',
 })
 export class FormatDataPipe implements PipeTransform {
+  // Formatting data pipe to showing distance to now
+
   transform(value: Date): string {
     if (value) {
       return formatDistanceToNow(value);

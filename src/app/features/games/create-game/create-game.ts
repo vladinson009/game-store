@@ -61,6 +61,7 @@ export class CreateGame implements OnInit {
     private categoryService: CategoryService
   ) {}
 
+  // Form builder
   private buildForm() {
     this.createGameForm = this.fb.nonNullable.group({
       title: this.fb.nonNullable.control('', {
@@ -82,7 +83,7 @@ export class CreateGame implements OnInit {
       platforms: this.fb.nonNullable.control<string[]>([]),
     });
   }
-
+  // Form event
   public createGameHandler() {
     if (!this.createGameForm || this.createGameForm.invalid) {
       return;
@@ -138,6 +139,8 @@ export class CreateGame implements OnInit {
         },
       });
   }
+
+  // onchange handler to check if image is selected
   public onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
 
@@ -148,6 +151,7 @@ export class CreateGame implements OnInit {
       this.createGameForm?.get('image')?.updateValueAndValidity();
     }
   }
+  // Reusable reset input field
   public resetInput(
     event: MouseEvent,
     inputName: keyof CreateGameFormat
@@ -159,19 +163,19 @@ export class CreateGame implements OnInit {
       this.createGameForm?.get(inputName)?.setValue('');
     }
   }
+  // Get dynamicly all platforms
   public getPlatforms() {
     this.platformService
       .getAll()
       .subscribe((res) => (this.platforms = res.data));
   }
+  // Get dynamicly all categories
   public getCategories() {
     this.categoryService
       .getAll()
       .subscribe((res) => (this.categories = res.data));
   }
-  public isPlatformSelected(id: string): boolean {
-    return this.createGameForm?.value.platforms?.includes(id) || false;
-  }
+
   ngOnInit(): void {
     this.getPlatforms();
     this.getCategories();

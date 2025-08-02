@@ -24,7 +24,7 @@ export class GameSearchbar implements OnInit {
     });
     this.childEmitter();
   }
-
+  // Event emitter to parent component
   childEmitter() {
     this.searchForm
       ?.get('search')

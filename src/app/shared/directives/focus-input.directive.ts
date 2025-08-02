@@ -4,6 +4,7 @@ import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
   selector: '[appFocusInput]',
 })
 export class FocusInput implements AfterViewInit {
+  // Focus input directive that focus first input field on each page
   constructor(
     private el: ElementRef<HTMLInputElement>,
     private renderer: Renderer2

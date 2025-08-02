@@ -51,6 +51,7 @@ export class GameDetails implements OnInit {
     private router: Router
   ) {}
 
+  // Toggle like event handler
   toggleLike() {
     this.isLoading.set(true);
     if (this.isLiked()) {
@@ -81,18 +82,23 @@ export class GameDetails implements OnInit {
         });
     }
   }
+
+  // Always send you back to the page from where did you came to details
   onBack() {
     this.location.back();
   }
+
+  // Open dialog modal to confirm delete action
   openDialog() {
     this.dialog.open(DialogModal, {
       data: {
         message: this.gameSignal()?.title,
         onAction: () => this.onDeleteGame(),
-        onClose: () => console.log('Closed'),
+        onClose: () => null,
       },
     });
   }
+  // Delete game handler
   public onDeleteGame() {
     this.isLoading.set(true);
     this.gameService

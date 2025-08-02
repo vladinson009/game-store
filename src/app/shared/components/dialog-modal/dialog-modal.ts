@@ -16,6 +16,8 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './dialog-modal.css',
 })
 export class DialogModal {
+  //Reusable dialog modal
+
   public message: string | undefined;
   public onAction: Function;
 

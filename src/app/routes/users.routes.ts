@@ -5,6 +5,7 @@ import { Profile } from '../features/profile/profile';
 import { guestOnlyGuard } from '../core/guards/guest-only-guard';
 import { userOnlyGuard } from '../core/guards/user-only-guard';
 
+// User module
 export const usersRoutes: Routes = [
   { path: 'login', component: Login, canActivate: [guestOnlyGuard] },
   { path: 'register', component: Register, canActivate: [guestOnlyGuard] },

@@ -21,12 +21,15 @@ export class Platforms implements OnInit {
   public isLoading = signal<boolean>(true);
   constructor(private platformService: PlatformService) {}
 
-  ngOnInit() {
+  getPlatforms() {
     this.platformService
       .getAll()
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe((res) => {
         this.platforms.set(res.data);
       });
+  }
+  ngOnInit() {
+    this.getPlatforms();
   }
 }

@@ -1,5 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
+// Custom control form validator
 export function dateValidator(
   control: AbstractControl
 ): ValidationErrors | null {

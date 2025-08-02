@@ -1,5 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
+// Custom control form validator
 export function urlValidator(
   control: AbstractControl
 ): ValidationErrors | null {

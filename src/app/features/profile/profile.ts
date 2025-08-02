@@ -56,12 +56,11 @@ export class Profile implements OnInit {
   ) {
     this.user = this.authService.user;
   }
-
-  ngOnInit(): void {
+  // Fetch own records limited to recent 100
+  fetchOwnRecords() {
     const queryParams = {
       limit: '100',
     };
-
     this.gameService
       .getAll(queryParams)
       .pipe(finalize(() => this.isLoading.set(false)))
@@ -70,5 +69,9 @@ export class Profile implements OnInit {
           res.data.filter((data) => data.author._id === this.user()?._id)
         );
       });
+  }
+
+  ngOnInit(): void {
+    this.fetchOwnRecords();
   }
 }
